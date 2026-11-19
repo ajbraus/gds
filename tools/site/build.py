@@ -12,6 +12,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from layout import page, ORG, SITE, ELTON, breadcrumbs_ld, breadcrumbs_html
 from posts import POSTS, DATE, ELTON_CTA
 import methods
+import reports
 
 REPO = sys.argv[1]
 TODAY = os.environ.get("GDS_TODAY") or datetime.date.today().isoformat()
@@ -333,6 +334,7 @@ write("about/index.html", page("About GDS: A Project of Elton University",
 
 # ---------------------------------------------------------------- Methods
 methods.build(write)
+reports.build(write)
 
 
 # ---------------------------------------------------------------- home "from the blog" cards (latest 3)
@@ -347,7 +349,7 @@ print("updated index.html blog cards")
 
 # ---------------------------------------------------------------- sitemap
 latest = max([DATE] + [p["date"] for p in POSTS])
-urls = [("/", "1.0", latest), ("/about/", "0.7", DATE), ("/faq/", "0.7", DATE), ("/methods/", "0.7", methods.UPDATED), ("/blog/", "0.8", latest)] + \
+urls = [("/", "1.0", latest), ("/about/", "0.7", DATE), ("/faq/", "0.7", DATE), ("/methods/", "0.7", methods.UPDATED), ("/reports/", "0.8", reports.UPDATED), ("/reports/united-states/", "0.8", reports.UPDATED), ("/reports/global/", "0.8", reports.UPDATED), ("/blog/", "0.8", latest)] + \
        [(f"/blog/{p['slug']}/", "0.8", p["date"]) for p in POSTS]
 sm = "\n".join(f"  <url>\n    <loc>{SITE}{u}</loc>\n    <lastmod>{lm}</lastmod>\n    <priority>{pr}</priority>\n  </url>" for u, pr, lm in urls)
 write("sitemap.xml", f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{sm}\n</urlset>\n')

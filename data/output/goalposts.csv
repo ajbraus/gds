@@ -5,7 +5,7 @@ infant_mortality,Infant mortality,"deaths per 1,000 live births",log,0.788457360
 substance_deaths,Alcohol and drug deaths,deaths from alcohol and drug use disorders per 100k (WHO GHE),log,-1.8717603960503588,2.993761640153995
 gender_inequality,Gender Inequality Index,0-1 (UNDP),linear,0.043625000000000004,0.69475
 lgbti_laws,Anti-LGBTI laws,"LGBTI Composite Policy Index, sign reversed (Velasco, via OWID)",linear,-13.866700000000002,2.858409999999987
-violence,Violent deaths,"homicide (UNODC, WHO fallback) + conflict deaths (UCDP) + suicide (WHO) per 100k",log1p,1.3792802471431291,4.107351537948377
+violence,Violent deaths,"homicide (UNODC, WHO fallback) + conflict deaths (UCDP) + suicide (WHO) per 100k",log1p,1.3761644940136595,4.103866958883634
 captivity,People held captive,prisoners + people in modern slavery per 100k,log,4.804021044733257,7.38025578842646
 overwork,Overwork,% of employed working 49+ hours a week (ILO),log,0.9197153980794956,3.7924651202121327
 undernourishment,Undernourishment,% of population (FAO),log,0.9162907318741551,3.6696958556279364

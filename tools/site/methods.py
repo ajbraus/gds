@@ -115,18 +115,17 @@ def build(write):
             <ul>
                 <li><strong>Every violent death counts the same.</strong> Violence adds homicides, war deaths and suicides, which the WHO classifies as self-directed violence. Counting suicide this way, one death for one death, avoids giving a single cause of death the weight of a whole pillar. Deaths from alcohol and drug use disorders count in Illness.</li>
                 <li><strong>Overwork is a form of unfreedom.</strong> Very long working hours take away people's control over their own time, so overwork sits in the Unfreedom pillar beside imprisonment and slavery. Captivity and overwork each make up half of the pillar.</li>
-                <li><strong>Violence means people killed.</strong> We count homicides and war deaths directly rather than using the Global Peace Index, which mixes in military spending and perceptions and already includes incarceration.</li>
+                <li><strong>Violence means people killed.</strong> We count homicides, war deaths and suicides directly rather than using the Global Peace Index, which mixes in military spending and perceptions and already includes incarceration.</li>
                 <li><strong>Animals count, and what counts is how they are treated.</strong> Animal suffering carries the same weight as every human pillar. We measure treatment, not the amount of meat eaten: an animal raised well and slaughtered humanely suffers little.</li>
                 <li><strong>Large, reliable datasets only.</strong> We use sources that cover nearly every country, year after year, from institutions such as the WHO, World Bank, UN agencies and FAO. We patch a gap only when another reliable source fills it cleanly, as with Japan's working hours. We accept a coarser picture rather than rely on thin or patchy data.</li>
             </ul>
 
             <h2>What we leave out, and why</h2>
             <ul>
-                <li><strong>Loneliness, stress and daily negative emotions.</strong> Survey measures of feelings are not comparable with deaths, imprisonment or hunger, so we do not add them to the score.</li>
+                <li><strong>Loneliness, stress and daily negative emotions.</strong> Survey measures of feelings are not comparable with deaths, imprisonment or hunger, and the only global surveys of loneliness are proprietary and cover only recent years, so we do not add them to the score.</li>
                 <li><strong>Length of life itself.</strong> A long life is not less suffering in itself. We count early death for the grief it causes, and illness for the suffering it brings while people are alive.</li>
                 <li><strong>Unemployment.</strong> Its harm shows up through poverty, illness and crime, which we measure directly.</li>
                 <li><strong>Pollution and unsafe water.</strong> Their harm shows up as illness and early death, which we already count.</li>
-                <li><strong>Loneliness and low-grade despair.</strong> The only global surveys of loneliness are proprietary and cover only recent years, so they cannot show trends since 2000.</li>
                 <li><strong>Depression and anxiety.</strong> The only country-by-year estimates come from the Institute for Health Metrics and Evaluation, whose license forbids redistribution, so we cannot publish them in an open index.</li>
             </ul>
 

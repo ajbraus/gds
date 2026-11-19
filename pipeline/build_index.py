@@ -104,6 +104,9 @@ def series(df, value_col):
 def who(code):
     d = pd.DataFrame(json.load(open(f"{RAW}/who/{code}.json"))["value"])
     d = d[(d.SpatialDimType == "COUNTRY") & (d.Dim1 == "SEX_BTSX")].copy()
+    # Some series (suicide, 2021) add rows for single age groups; keep the all-ages figure
+    if "Dim2" in d:
+        d = d[d.Dim2.isna() | (d.Dim2 == "AGEGROUP_YEARSALL")]
     # A few WHO series publish the number only as text in "Value"
     d["NumericValue"] = d.NumericValue.fillna(pd.to_numeric(d.Value, errors="coerce"))
     return d.rename(columns={"SpatialDim": "iso3", "TimeDim": "year", "NumericValue": "value"})[["iso3", "year", "value"]]
