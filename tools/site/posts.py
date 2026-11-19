@@ -218,13 +218,14 @@ POSTS = [
             <h2>What the misery index misses</h2>
             <p>The misery index is a measure of <em>economic</em> pain. It can't see most of what makes people miserable:</p>
             <ul>
-                <li><strong>Health.</strong> A child's death from a preventable disease doesn't move it.</li>
+                <li><strong>Preventable death.</strong> A child's death from a preventable disease doesn't move it.</li>
                 <li><strong>Illness and despair.</strong> Disease, depression, addiction and suicide are invisible to it.</li>
                 <li><strong>Violence and unfreedom.</strong> Homicide, war, mass incarceration and modern slavery don't register.</li>
                 <li><strong>Informal economies.</strong> In countries where most people work informally, official unemployment can be low even when poverty is severe, so the index can make poor countries look comfortable.</li>
                 <li><strong>Animals.</strong> Tens of billions of animals in industrial farming lie entirely outside it.</li>
             </ul>
             <p>The misery index is also a national average. It says nothing about who bears the pain.</p>
+            <p>Nobel laureate Paul Krugman made the same point in September 2020. Jobs were coming back, he wrote in <em>The New York Times</em>, yet "despite job gains we're in the midst of a huge increase in national misery."<sup><a href="#s4">4</a></sup> Standard economic numbers can improve while suffering grows.</p>
 
             <h2>From the misery index to Gross Domestic Suffering</h2>
             <p>We think Okun's instinct was right: a nation's success should be judged by the misery its people endure, not only by what they produce. <a href="/">Gross Domestic Suffering</a> takes that idea further by measuring suffering directly, with outcome data from the UN, World Bank, WHO and other public sources.</p>
@@ -247,6 +248,7 @@ POSTS = [
     ('Investopedia. Misery Index: Definition, Formula, and Uses.', 'https://www.investopedia.com/terms/m/miseryindex.asp'),
     ('Hanke, S. H. Hanke\'s 2023 Misery Index. Cato Institute.', 'https://www.cato.org/commentary/hankes-2023-misery-index'),
     ('Di Tella, R., MacCulloch, R. J., &amp; Oswald, A. J. (2001). Preferences over inflation and unemployment: Evidence from surveys of happiness. <em>American Economic Review</em>, 91(1), 335–341.', 'https://doi.org/10.1257/aer.91.1.335'),
+    ('Krugman, P. (2020, September 7). Opinion column. <em>The New York Times</em>.', 'https://www.nytimes.com/2020/09/07/opinion/trump-economy-jobs.html'),
 ],
 },
 ]

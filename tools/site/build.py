@@ -265,6 +265,7 @@ body = f'''        <section class="page-hero">
 
             <h2>Created by Adam Braus</h2>
             <p>Gross Domestic Suffering was created by Adam Braus, an educator, writer and the founder of Elton University. It began with a simple question: if GDP measures everything except what makes life worthwhile, what would it look like to measure the opposite?</p>
+            <p>Leading economists have asked the same question. In September 2020, Nobel laureate Paul Krugman warned in <a href="https://www.nytimes.com/2020/09/07/opinion/trump-economy-jobs.html" target="_blank" rel="noopener"><em>The New York Times</em></a> that "despite job gains we're in the midst of a huge increase in national misery." Gross Domestic Suffering measures that misery directly.</p>
             <p>The answer is an index of preventable suffering across illness, gender inequality, violence, unfreedom, deprivation and animal suffering. It scores 185 countries for every year since 2000. Japan, Switzerland and Germany suffer least. The United States, the world's largest economy, ranks 82nd, behind China, Cuba, Vietnam and Sri Lanka.</p>
 
             <aside class="callout book">
