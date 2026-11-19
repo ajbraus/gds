@@ -101,7 +101,7 @@
                 <li><a href="/blog/">Blog</a></li>
                 <li><a href="/faq/">FAQ</a></li>
                 <li><a href="/about/">About</a></li>
-                <li><a class="nav-cta" href="/#join">Get involved</a></li>
+                <li><a class="nav-cta" href="https://elton.university" target="_blank" rel="noopener">Built by Elton University</a></li>
             </ul>
         </nav>
     </header>
@@ -406,13 +406,18 @@
         <!-- CTA -->
         <section class="cta" id="join" aria-labelledby="join-title">
             <div class="container narrow center">
-                <h2 id="join-title">Join the movement</h2>
-                <p class="lead">Together, we can build economies that put human dignity ahead of abstract growth metrics.</p>
-                <div class="cta-grid">
-                    <a class="cta-item" href="https://github.com/ajbraus/gds" target="_blank" rel="noopener"><strong>Review the methodology</strong><span>Read, critique and improve the index on GitHub</span></a>
-                    <a class="cta-item" href="https://github.com/ajbraus/gds/issues" target="_blank" rel="noopener"><strong>Suggest an indicator</strong><span>Propose data we should include</span></a>
-                    <a class="cta-item" href="https://github.com/ajbraus/gds/subscription" target="_blank" rel="noopener"><strong>Get updates</strong><span>Watch the repository for new releases</span></a>
-                </div>
+                <h2 id="join-title">Get updates</h2>
+                <p class="lead">Get new findings, reports and articles from Gross Domestic Suffering by email. Unsubscribe anytime.</p>
+                <form class="signup" action="https://www.elton.university/subscribe/gds" method="POST" data-signup>
+                    <input type="text" name="website" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true">
+                    <div class="signup-fields">
+                        <label class="visually-hidden" for="signup-email">Email address</label>
+                        <input id="signup-email" type="email" name="email" maxlength="200" autocomplete="email" required placeholder="you@example.com">
+                        <button class="btn btn-primary" type="submit">Subscribe</button>
+                    </div>
+                    <p class="signup-message" role="status" aria-live="polite" hidden></p>
+                </form>
+                <p class="signup-note">Sent by <a href="https://elton.university" target="_blank" rel="noopener">Elton University</a>, which runs this project. Want to help improve the index? <a href="https://github.com/ajbraus/gds/issues" target="_blank" rel="noopener">Suggest an indicator or a correction</a>.</p>
             </div>
         </section>
     </main>
@@ -442,6 +447,29 @@
     </footer>
 
     <script>
+        // Email signup: posts to Elton University's subscriber list and shows the result in place
+        const signup = document.querySelector('form[data-signup]');
+        const signupMsg = signup.querySelector('.signup-message');
+        const showSignup = (text, ok) => { signupMsg.textContent = text; signupMsg.hidden = false; signupMsg.classList.toggle('error', !ok); };
+        if (new URLSearchParams(location.search).has('subscribed')) {
+            signup.querySelector('.signup-fields').hidden = true;
+            showSignup("You're subscribed. Thank you!", true);
+        }
+        signup.addEventListener('submit', e => {
+            if (!window.fetch) return;
+            e.preventDefault();
+            const button = signup.querySelector('button');
+            button.disabled = true;
+            fetch(signup.action, { method: 'POST', headers: { Accept: 'application/json' }, body: new URLSearchParams(new FormData(signup)) })
+                .then(r => r.json())
+                .catch(() => ({ ok: false, message: 'Something went wrong. Please try again in a moment.' }))
+                .then(data => {
+                    showSignup(data.message, data.ok);
+                    if (data.ok) signup.querySelector('.signup-fields').hidden = true;
+                    else button.disabled = false;
+                });
+        });
+
         const toggle = document.querySelector('.nav-toggle');
         const links = document.getElementById('nav-links');
         toggle.addEventListener('click', () => {

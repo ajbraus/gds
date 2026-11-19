@@ -37,7 +37,7 @@ def header(active):
     for href, label, key in NAV:
         cur = ' aria-current="page"' if key == active else ""
         items.append(f'                <li><a href="{href}"{cur}>{label}</a></li>')
-    items.append('                <li><a class="nav-cta" href="/#join">Get involved</a></li>')
+    items.append(f'                <li><a class="nav-cta" href="{ELTON}" target="_blank" rel="noopener">Built by Elton University</a></li>')
     return f'''    <a class="skip-link" href="#main">Skip to content</a>
 
     <header class="site-header" id="top">
