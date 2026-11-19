@@ -1,13 +1,29 @@
 """Generate GDS inner pages (blog, FAQ, about, sitemap) into the repo.
 
 Usage: python3 -I tools/site/build.py .
-The homepage (index.html) is edited by hand; keep its header/footer in sync with layout.py."""
-import os, sys, re, html
+The homepage (index.html) is edited by hand, except its "From the blog" cards
+between the blog-cards markers; keep its header/footer in sync with layout.py.
+
+Posts with a future "date" stay unpublished until a build runs on or after that
+date (the daily GitHub Action in .github/workflows/publish-posts.yml). Set
+GDS_TODAY=YYYY-MM-DD to preview a later date."""
+import datetime, os, sys, re, html
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from layout import page, ORG, SITE, ELTON, breadcrumbs_ld, breadcrumbs_html
-from posts import POSTS, DATE, DATE_H, ELTON_CTA
+from posts import POSTS, DATE, ELTON_CTA
 
 REPO = sys.argv[1]
+TODAY = os.environ.get("GDS_TODAY") or datetime.date.today().isoformat()
+
+
+def human_date(iso):
+    d = datetime.date.fromisoformat(iso)
+    return f"{d:%B} {d.day}, {d.year}"
+
+
+for p in POSTS:
+    p.setdefault("date", DATE)
+POSTS = sorted((p for p in POSTS if p["date"] <= TODAY), key=lambda p: p["date"], reverse=True)
 
 
 def write(rel, content):
@@ -34,8 +50,8 @@ for p in POSTS:
             "headline": p["title"],
             "description": p["description"],
             "image": [SITE + p["og"], SITE + p["image"]],
-            "datePublished": DATE,
-            "dateModified": DATE,
+            "datePublished": p["date"],
+            "dateModified": p["date"],
             "author": {"@id": SITE + "/#org"},
             "publisher": {"@id": SITE + "/#org"},
             "mainEntityOfPage": SITE + path,
@@ -55,7 +71,7 @@ for p in POSTS:
                     <p class="eyebrow">{p["tag"]}</p>
                     <h1>{p["title"]}</h1>
                     <p class="page-lead">{p["excerpt"]}</p>
-                    <p class="meta">By the Gross Domestic Suffering team at Elton University · <time datetime="{DATE}">{DATE_H}</time> · {p["read"]}</p>
+                    <p class="meta">By the Gross Domestic Suffering team at Elton University · <time datetime="{p["date"]}">{human_date(p["date"])}</time> · {p["read"]}</p>
                 </div>
             </header>
             <div class="prose">
@@ -74,7 +90,7 @@ for p in POSTS:
             </div>
         </article>'''
     meta = f'''
-    <meta property="article:published_time" content="{DATE}">
+    <meta property="article:published_time" content="{p["date"]}">
     <meta property="article:section" content="{p["tag"]}">'''
     write(f"blog/{p['slug']}/index.html",
           page(f"{p['seo_title']} | GDS", p["description"], path, graph, body, "blog",
@@ -103,7 +119,7 @@ graph = [
         "description": "Essays on alternatives to GDP, the limitations of GDP and how to measure suffering.",
         "url": SITE + "/blog/",
         "publisher": {"@id": SITE + "/#org"},
-        "blogPost": [{"@type": "BlogPosting", "headline": p["title"], "url": f"{SITE}/blog/{p['slug']}/", "datePublished": DATE} for p in POSTS],
+        "blogPost": [{"@type": "BlogPosting", "headline": p["title"], "url": f"{SITE}/blog/{p['slug']}/", "datePublished": p["date"]} for p in POSTS],
     },
     breadcrumbs_ld(trail),
 ]
@@ -303,6 +319,8 @@ body = f'''        <section class="page-hero">
                     <li>Hospital corridor, NÄL hospital: W.carter, <a href="https://commons.wikimedia.org/wiki/File:Corridor_on_the_second_level_-_N%C3%84L_hospital_1.jpg" target="_blank" rel="noopener">CC0</a></li>
                     <li>Moyamensing Prison: Historic American Buildings Survey, Library of Congress, <a href="https://commons.wikimedia.org/wiki/File:Philadelphia_County_Prison_(Moyamensing_Prison)_Philadelphia_PA_(7)_139920pu.jpg" target="_blank" rel="noopener">public domain</a></li>
                     <li>Hens in battery cages: Lever Foundation, <a href="https://commons.wikimedia.org/wiki/File:Subway_egg_supplier_investigation_-_birds_crammed_in_cages.jpg" target="_blank" rel="noopener">CC0</a></li>
+                    <li>Destroyed buildings in Mariupol: Mariupol City Council, <a href="https://commons.wikimedia.org/wiki/File:Destroyed_buildings_in_mariupol.jpg" target="_blank" rel="noopener">public domain</a></li>
+                    <li>Village life in Guinea-Bissau, 1974: Roel Coutinho, ASC Leiden, <a href="https://commons.wikimedia.org/wiki/File:ASC_Leiden_-_Coutinho_Collection_-_5_18_-_Village_life_in_Guinea-Bissau_-_Woman_cultivating_the_field_-_1974.tif" target="_blank" rel="noopener">CC BY-SA 4.0</a></li>
                     <li>Air pollution in São Paulo: Wilfredor, <a href="https://commons.wikimedia.org/wiki/File:Panoramic_view_of_air_pollution_in_S%C3%A3o_Paulo_city,_Brazil.jpg" target="_blank" rel="noopener">CC0</a></li>
                 </ul>
             </section>
@@ -312,12 +330,19 @@ write("about/index.html", page("About GDS: A Project of Elton University",
       "/about/", graph, body, "about"))
 
 
-# ---------------------------------------------------------------- home "from the blog" cards
-with open(os.path.join(REPO, "_blog_cards.tmp"), "w") as f:  # for pasting into index.html; delete after use
-    f.write("\n".join(card(p, "h3") for p in POSTS))
+# ---------------------------------------------------------------- home "from the blog" cards (latest 3)
+home = os.path.join(REPO, "index.html")
+h = open(home).read()
+h, n = re.subn(r"(<!-- blog-cards:start -->\n).*?(\n\s*<!-- blog-cards:end -->)",
+               lambda m: m.group(1) + "\n".join(card(p, "h3") for p in POSTS[:3]) + m.group(2), h, flags=re.S)
+assert n == 1, "blog-cards markers missing from index.html"
+with open(home, "w") as f:
+    f.write(h)
+print("updated index.html blog cards")
 
 # ---------------------------------------------------------------- sitemap
-urls = [("/", "1.0"), ("/about/", "0.7"), ("/faq/", "0.7"), ("/blog/", "0.8")] + \
-       [(f"/blog/{p['slug']}/", "0.8") for p in POSTS]
-sm = "\n".join(f"  <url>\n    <loc>{SITE}{u}</loc>\n    <lastmod>{DATE}</lastmod>\n    <priority>{pr}</priority>\n  </url>" for u, pr in urls)
+latest = max([DATE] + [p["date"] for p in POSTS])
+urls = [("/", "1.0", latest), ("/about/", "0.7", DATE), ("/faq/", "0.7", DATE), ("/blog/", "0.8", latest)] + \
+       [(f"/blog/{p['slug']}/", "0.8", p["date"]) for p in POSTS]
+sm = "\n".join(f"  <url>\n    <loc>{SITE}{u}</loc>\n    <lastmod>{lm}</lastmod>\n    <priority>{pr}</priority>\n  </url>" for u, pr, lm in urls)
 write("sitemap.xml", f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{sm}\n</urlset>\n')

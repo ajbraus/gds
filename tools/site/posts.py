@@ -252,3 +252,6 @@ POSTS = [
 ],
 },
 ]
+
+from posts_scheduled import SCHEDULED  # noqa: E402
+POSTS += SCHEDULED

@@ -19,3 +19,11 @@ python3 -m http.server 8000
 ```
 
 Then open http://localhost:8000.
+
+## Scheduled blog posts
+
+Posts in `tools/site/posts_scheduled.py` carry a publish `date`. `build.py` only
+publishes posts whose date has arrived, and the GitHub Action
+`.github/workflows/publish-posts.yml` runs it every morning, committing any newly
+due post to `main`. Preview a future date locally with
+`GDS_TODAY=2027-03-01 python3 -I tools/site/build.py <output-dir>`.
