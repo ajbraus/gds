@@ -1,0 +1,10 @@
+indicator,label,unit,transform,best_goalpost,worst_goalpost
+illness_burden,Healthy life years lost to illness and early death,years below 75 (WHO HALE),linear,4.200000000000003,30.700000000000003
+infant_mortality,Infant mortality,"deaths per 1,000 live births",log,0.7884573603642703,4.487989939085079
+gender_inequality,Gender Inequality Index,0-1 (UNDP),linear,0.043625000000000004,0.69475
+violence,Violent deaths,"homicide (UNODC, WHO fallback) + conflict deaths (UCDP) per 100k",log1p,0.1939613207269218,3.897226555550451
+unfreedom,Unfree people,prisoners + people in modern slavery per 100k,log,4.867534450455582,7.392662540235083
+undernourishment,Undernourishment,% of population (FAO),log,0.9162907318741551,3.6696958556279364
+extreme_poverty,Extreme poverty,"% below $3.00/day, 2021 PPP (World Bank)",log1p,0.0,4.224457612596131
+displacement,Forcibly displaced people,"refugees, asylum seekers and IDPs by origin per 100k (UNHCR)",log1p,0.0,9.434876061132957
+animal_suffering,Animal suffering,welfare-adjusted land animals slaughtered per person,log1p,0.418233067101785,3.482357324307799

@@ -2,497 +2,446 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gross Domestic Suffering</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="styles.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gross Domestic Suffering (GDS): An Alternative to GDP</title>
+    <meta name="description" content="Gross Domestic Suffering is an alternative to GDP: an open index from Elton University that ranks countries by preventable human and animal suffering.">
+    <link rel="canonical" href="https://grossdomesticsuffering.org/">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="theme-color" content="#0b1020">
+    <meta name="author" content="Gross Domestic Suffering Initiative">
+
+    <!-- Open Graph / social -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Gross Domestic Suffering">
+    <meta property="og:title" content="Gross Domestic Suffering: an alternative to GDP that measures suffering">
+    <meta property="og:description" content="An open index that ranks countries by preventable human and animal suffering. Beyond GDP, beyond happiness: a measure of what we should work to end.">
+    <meta property="og:url" content="https://grossdomesticsuffering.org/">
+    <meta property="og:image" content="https://grossdomesticsuffering.org/images/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Gross Domestic Suffering — Earth at night">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Gross Domestic Suffering: an alternative to GDP that measures suffering">
+    <meta name="twitter:description" content="An open index that ranks countries by preventable human and animal suffering.">
+    <meta name="twitter:image" content="https://grossdomesticsuffering.org/images/og-image.jpg">
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="preload" as="image" href="/images/hero-earth-night.webp" fetchpriority="high">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="/styles.css" rel="stylesheet">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://grossdomesticsuffering.org/#org",
+          "name": "Gross Domestic Suffering Initiative",
+          "alternateName": "GDS",
+          "url": "https://grossdomesticsuffering.org/",
+          "logo": "https://grossdomesticsuffering.org/favicon.svg",
+          "parentOrganization": {
+            "@type": "CollegeOrUniversity",
+            "@id": "https://elton.university/#org",
+            "name": "Elton University",
+            "url": "https://elton.university",
+            "nonprofitStatus": "Nonprofit501c3"
+          },
+          "sameAs": [
+            "https://github.com/ajbraus/gds"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://grossdomesticsuffering.org/#website",
+          "url": "https://grossdomesticsuffering.org/",
+          "name": "Gross Domestic Suffering",
+          "publisher": {
+            "@id": "https://grossdomesticsuffering.org/#org"
+          },
+          "inLanguage": "en"
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://grossdomesticsuffering.org/#page",
+          "url": "https://grossdomesticsuffering.org/",
+          "name": "Gross Domestic Suffering (GDS): An Alternative to GDP",
+          "isPartOf": {
+            "@id": "https://grossdomesticsuffering.org/#website"
+          },
+          "about": {
+            "@id": "https://grossdomesticsuffering.org/#org"
+          },
+          "primaryImageOfPage": "https://grossdomesticsuffering.org/images/hero-earth-night.webp"
+        }
+      ]
+    }
+    </script>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="#">Gross Domestic Suffering</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header" id="top">
+        <nav class="nav container" aria-label="Main">
+            <a class="brand" href="/" aria-label="Gross Domestic Suffering home">
+                <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M6 19c4-6 7 3 10-3s6 4 10-2" fill="none" stroke="#f0a73b" stroke-width="2.5" stroke-linecap="round"/></svg>
+                <span>Gross Domestic Suffering</span>
+            </a>
+            <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu">
+                <span></span><span></span><span></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <!-- <li class="nav-item">
-                        <a class="nav-link active" href="#">Home</a>
-                    </li> -->
-                    <!-- <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
-                    </li> -->
-                </ul>
-            </div>
-        </div>
-    </nav>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="/#framework">The index</a></li>
+                <li><a href="/#prototype">Findings</a></li>
+                <li><a href="/blog/">Blog</a></li>
+                <li><a href="/faq/">FAQ</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><a class="nav-cta" href="/#join">Get involved</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <!-- Hero Section -->
-    <div class="hero-section">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-10 text-center">
-                    <h2 class="hero-subtitle mb-3">MEASURING WHAT TRULY MATTERS</h2>
-                    <h1 class="hero-title mb-4">GROSS DOMESTIC SUFFERING</h1>
-                    <p class="hero-lead mb-5">A revolutionary economic metric for a more compassionate world</p>
-                    <div class="hero-buttons">
-                        <a href="#" class="btn btn-primary btn-lg me-3">VIEW US DATA</a>
-                        <a href="#" class="btn btn-outline-light btn-lg">VIEW GLOBAL RANKINGS</a>
-                    </div>
+    <main id="main">
+        <!-- Hero -->
+        <section class="hero" aria-labelledby="hero-title">
+            <div class="hero-bg" role="img" aria-label="Satellite composite of the Earth's city lights at night"></div>
+            <div class="container hero-inner">
+                <p class="eyebrow">Measuring what truly matters</p>
+                <h1 id="hero-title">Gross Domestic Suffering</h1>
+                <p class="hero-lead">GDP tells us how much a country produces. It says nothing about how much its people — and its animals — suffer. Gross Domestic Suffering is an alternative to GDP: an open index that measures exactly that, so we can work to end it.</p>
+                <div class="hero-actions">
+                    <a href="#framework" class="btn btn-primary">Explore the framework</a>
+                    <a href="#prototype" class="btn btn-ghost">See the findings</a>
                 </div>
+                <p class="hero-status"><span class="dot" aria-hidden="true"></span> 185 countries · 2000–2023 · open data and code on GitHub</p>
             </div>
-        </div>
-    </div>
+        </section>
 
-    <!-- Pull Quote Section -->
-    <div class="pull-quote-section py-5">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-10">
-                    <div class="row g-4">
-                        <div class="col-md-6">
-                            <div class="pull-quote">
-                                <blockquote class="mb-4">
-                                    "...despite job gains we're in the midst of a huge increase in national misery."
-                                </blockquote>
-                                <div class="quote-attribution">
-                                    <p class="mb-1">- Paul Krugman, Nobel Prize-winning economist</p>
-                                    <p class="source">The New York Times, September 2020</p>
-                                    <a href="https://www.nytimes.com/2020/09/07/opinion/trump-economy-jobs.html" class="source-link" target="_blank">Read the full article</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="pull-quote">
-                                <blockquote class="mb-4">
-                                    "GDP measures everything, except that which makes life worthwhile."
-                                </blockquote>
-                                <div class="quote-attribution">
-                                    <p class="mb-1">- Robert F. Kennedy</p>
-                                    <p class="source">Speech at the University of Kansas, March 18, 1968</p>
-                                    <a href="https://www.scientificamerican.com/article/gdp-is-the-wrong-tool-for-measuring-what-matters/" class="source-link" target="_blank">Read the full article</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-10 offset-md-1">
-                            <div class="pull-quote">
-                                <blockquote class="mb-4">
-                                    GDP "omits domestic labour and other unpaid work, includes a great deal of economic activity that may be harmful to individuals, society or the environment, and is insensitive to inequality."
-                                    <!-- "GDP includes a great deal of economic activity that does not contribute directly to economic welfare and may be harmful to individuals, society or the environment, and it is insensitive to inequality." -->
-                                </blockquote>
-                                <div class="quote-attribution">
-                                    <p class="mb-1">- Joseph Stigliz, Amartya Sen, Jean Paul Fitoussi </p>
-                                    <p class="source">"Mis-Measuring Our Lives: Why GDP Doesn't Add Up (The Report of the Commission on the Measurement of Economic Performance and Social Progress)</p>
-                                    <a href="https://www.researchgate.net/publication/44841274_Mis-Measuring_Our_Lives_Why_GDP_Doesn't_Add_Up_The_Report_of_the_Commission_on_the_Measurement_of_Economic_Performance_and_Social_Progress" class="source-link" target="_blank">Read the full report</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- <div class="quote-context mt-4">
-                        <p>The disconnect between economic indicators and human suffering has never been more apparent. While GDP and employment statistics suggest recovery, the Gross Domestic Suffering index reveals the true state of human welfare.</p>
-                    </div> -->
+        <!-- Featured quote -->
+        <section class="feature-quote" aria-label="Robert F. Kennedy on GDP">
+            <div class="container feature-quote-inner">
+                <figure class="rfk">
+                    <img src="/images/rfk-1968.webp" alt="Portrait of Robert F. Kennedy, 1968" width="462" height="610" loading="lazy">
+                </figure>
+                <blockquote>
+                    <p>“[GDP] measures everything, in short, except that which makes life worthwhile.”</p>
+                    <footer>
+                        <cite>Robert F. Kennedy</cite>
+                        <span>University of Kansas, March 18, 1968 · <a href="https://www.scientificamerican.com/article/gdp-is-the-wrong-tool-for-measuring-what-matters/" target="_blank" rel="noopener">Read more</a></span>
+                    </footer>
+                </blockquote>
+            </div>
+        </section>
+
+        <!-- Why -->
+        <section class="section" id="why" aria-labelledby="why-title">
+            <div class="container split">
+                <div>
+                    <p class="eyebrow eyebrow-dark">Beyond GDP</p>
+                    <h2 id="why-title">When we measure the wrong things, we get the wrong outcomes</h2>
+                    <p class="lead">For too long, nations have measured success by GDP growth while ignoring the human cost. Gross Domestic Suffering flips the question: not <em>how much did we make?</em> but <em>how much preventable misery is left?</em></p>
+                    <p>GDP rises when we build prisons, treat preventable disease and clean up pollution. It cannot see unpaid care, despair or cruelty. GDS brings those costs into view by combining outcome data on illness, gender inequality, violence, unfreedom, deprivation and animal suffering into a single, transparent score.</p>
+                    <ul class="checks">
+                        <li>GDP growth often masks underlying social problems</li>
+                        <li>Wealth doesn't guarantee wellbeing</li>
+                        <li>True progress requires measuring human impact</li>
+                        <li>Policy should be judged by the suffering it prevents</li>
+                    </ul>
                 </div>
+                <figure class="photo photo-tall">
+                    <img src="/images/social-encampment.webp" alt="Tents of an encampment of unhoused people beneath a bridge in Chicago" width="1000" height="750" loading="lazy">
+                    <figcaption>Chicago, one of the world's richest cities. Growth and suffering can rise together. Photo: Grendelkhan, <a href="https://commons.wikimedia.org/wiki/File:Homeless_encampment_under_bridge_in_Chicago.jpg" target="_blank" rel="noopener">CC BY-SA 4.0</a>.</figcaption>
+                </figure>
             </div>
-        </div>
-    </div>
+        </section>
 
-    <!-- Introduction Section -->
-    <div class="intro-section py-5">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-10">
-                    <h1 class="display-4 mb-4">Beyond GDP: A New Economic Paradigm</h1>
-                    
-                    <div class="row align-items-center">
-                        <div class="col-lg-8">
-                            <p class="lead mb-4">For too long, nations have measured success by GDP growth while ignoring the human cost. Gross Domestic Suffering (GDS) flips the script by measuring what truly matters - the reduction of human misery.</p>
-                            
-                            <p class="mb-4">While GDP celebrates production regardless of consequences, GDS reveals the hidden suffering behind economic statistics. Our comprehensive index combines 11 key indicators across healthcare, social welfare, justice systems, and human rights to provide a more honest picture of national well-being.</p>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="intro-quote">
-                                <div class="quote-icon">
-                                    <i class="bi bi-quote"></i>
-                                </div>
-                                <blockquote class="mb-0">
-                                    "What if we prioritized minimizing suffering rather than maximizing profit?"
-                                </blockquote>
-                            </div>
-                        </div>
-                    </div>
+        <!-- Quotes -->
+        <section class="section section-tint" aria-labelledby="voices-title">
+            <div class="container">
+                <h2 id="voices-title" class="section-title">Economists have been saying it for years</h2>
+                <div class="quote-grid">
+                    <figure class="quote-card">
+                        <blockquote><p>“…despite job gains we're in the midst of a huge increase in national misery.”</p></blockquote>
+                        <figcaption>
+                            <span><strong>Paul Krugman</strong>, Nobel laureate in economics</span>
+                            <span>The New York Times, September 2020 · <a href="https://www.nytimes.com/2020/09/07/opinion/trump-economy-jobs.html" target="_blank" rel="noopener">Read the article</a></span>
+                        </figcaption>
+                    </figure>
+                    <figure class="quote-card">
+                        <blockquote><p>GDP “omits domestic labour and other unpaid work, includes a great deal of economic activity that may be harmful to individuals, society or the environment, and is insensitive to inequality.”</p></blockquote>
+                        <figcaption>
+                            <strong>Joseph Stiglitz, Amartya Sen &amp; Jean-Paul Fitoussi</strong>
+                            <span><cite>Mis-Measuring Our Lives</cite>, report of the Commission on the Measurement of Economic Performance and Social Progress · <a href="https://www.researchgate.net/publication/44841274_Mis-Measuring_Our_Lives_Why_GDP_Doesn't_Add_Up_The_Report_of_the_Commission_on_the_Measurement_of_Economic_Performance_and_Social_Progress" target="_blank" rel="noopener">Read the report</a></span>
+                        </figcaption>
+                    </figure>
                 </div>
             </div>
-        </div>
-    </div>
+        </section>
 
-    <!-- How It Works Section -->
-    <div id="how-it-works" class="py-5">
-        <div class="container">
-            <h2 class="text-center mb-5">The GDS Framework</h2>
-            <p class="lead text-center mb-5">Unlike GDP, which treats all economic activity as positive regardless of impact, GDS recognizes that true prosperity means ending preventable suffering.</p>
-            
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <a class="card h-100" href="https://hdr.undp.org/data-center/thematic-composite-indices/gender-inequality-index#/indicies/GII" target="_blank">
-                        <div class="card-body">
-                            <h5 class="card-title">Gender Equity Index</h5>
-                            United Nations
-                            <p class="card-text">Treatment and opportunities for women</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-4">
-                    <a class="card h-100" href="https://data.worldbank.org/indicator/SP.DYN.IMRT.IN" target="_blank">
-                        <div class="card-body">
-                            <h5 class="card-title">Infant Mortality Rate</h5>
-                            World Bank
-                            <p class="card-text">Healthcare quality and accessibility</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-4">
-                    <a class="card h-100" href="https://www.healthdata.org/research-analysis/gbd" target="_blank">
-                        <div class="card-body">
-                            <h5 class="card-title">Global Burden of Disease</h5>
-                            Institute for Health Metrics and Evaluation
-                            <p class="card-text">The burden of disease</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-4">
-                    <a class="card h-100" href="https://data.worldbank.org/indicator/SL.UEM.TOTL.ZS" target="_blank">
-                        <div class="card-body">
-                            <h5 class="card-title">Unemployment Rate</h5>
-                            World Bank
-                            <p class="card-text">Access to meaningful work</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-4">
-                    <a class="card h-100" href="https://worldpopulationreview.com/country-rankings/most-violent-countries" target="_blank"> 
-                        <div class="card-body">
-                            <h5 class="card-title">Violence Rate</h5>
-                            Inversion of the Global Peace Index
-                            <p class="card-text">Violence</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-4">
-                    <a class="card h-100" href="https://worldpopulationreview.com/country-rankings/suicide-rate-by-country" target="_blank">
-                        <div class="card-body">
-                            <h5 class="card-title">Suicide Rate</h5>
-                            World Population Review
-                            <p class="card-text">Poor mental health and social disintegration</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-4">
-                    <a class="card h-100" href="https://worldpopulationreview.com/country-rankings/incarceration-rates-by-country" target="_blank">
-                        <div class="card-body">
-                            <h5 class="card-title">Incarceration Rate</h5>
-                            World Population Review
-                            <p class="card-text">Crime and criminality</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Depression Rate</h5>
-                            <p class="card-text">Mental wellbeing across populations</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Alcoholism Rate</h5>
-                            <p class="card-text">Substance dependency prevalence</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Drug Fatality Rate</h5>
-                            <p class="card-text">Addiction crisis severity</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <a class="card h-100" href="https://api.worldanimalprotection.org/" target="_blank">
-                        <div class="card-body">
-                            <h5 class="card-title">Animal Protection Index</h5>
-                            World Animal Protection
-                            <p class="card-text">Human caused animal suffering</p>
-                        </div>
-                    </a>
-                </div>
-                <h5>Other possible indicators</h5>
-                <ul>
-                    <li><a href="https://www.iqair.com/us/world-most-polluted-countries" target="_blank">Air Pollution - IQAir</a> - dirty air causes humans and animals some suffering.</li>
-                    <li><a href="https://epi.yale.edu/" target="_blank">Enviornmental Performance Index</a> - an index of many ecological factors. This could be a measure of ecological suffering of animals as well as the damage to humans from ecological factors.</li>
-                    <li><a href="https://epi.yale.edu/measure/2024/UWD" target="_blank">Safe or Unsafe Drinking Water</a> - causes humans a large amount of suffering (illness, deathy, disempowerment)</li>
-                    <li><a href="https://worldpopulationreview.com/country-rankings/pisa-scores-by-country" target="_blank">PISA Test Score - a good test of general education and skills (not just # of years of schooling)</a></li>
-                    <li><a href="https://worldpopulationreview.com/country-rankings/literacy-rate-by-country" target="_blank">Illiteracy Rate - lower literacy will inevitably lead to being disempowered in many ways.</a></li>
-                    <li>Life expectancy - there is already burden of disease, so does living longer mean less suffering? Arguably yes.</li>
-                    <li><a href="https://fragilestatesindex.org/" target="_blank">Fragile State Index</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
+        <!-- Framework -->
+        <section class="section" id="framework" aria-labelledby="framework-title">
+            <div class="container">
+                <p class="eyebrow eyebrow-dark center">The GDS framework</p>
+                <h2 id="framework-title" class="section-title">Six kinds of preventable suffering</h2>
+                <p class="section-lead">Unlike GDP, which treats all economic activity as positive regardless of impact, GDS measures what we should work to end. Every indicator counts suffering, comes from a public, internationally comparable source, and is scored on a fixed 0–100 scale so countries can be compared with each other and with their own past.</p>
 
-    <!-- Why It Matters Section -->
-    <div class="why-it-matters py-5">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <h2 class="mb-4">Rethinking National Success</h2>
-                    <p class="lead mb-4">When we measure the wrong things, we get the wrong outcomes.</p>
-                    <p class="mb-4">Nations with impressive GDP figures often hide shocking levels of suffering. The United States ranks 59th globally in minimizing suffering - behind countries with far fewer resources - due to high incarceration rates, mental health crises, and inadequate healthcare access.</p>
-                    <p class="mb-4">By measuring suffering directly, we create accountability for the human impact of economic policies. GDS provides clear direction for policymakers: focus first on ending preventable misery rather than driving consumption at any cost.</p>
-                    <p class="mb-0">The path to genuine prosperity starts with acknowledging where we're failing our most vulnerable.</p>
-                </div>
-                <div class="col-lg-6">
-                    <div class="card bg-light border-0 shadow-sm">
-                        <div class="card-body p-4">
-                            <h3 class="card-title h4 mb-4">Key Insights</h3>
-                            <ul class="list-unstyled">
-                                <li class="mb-3">
-                                    <div class="d-flex align-items-center">
-                                        <i class="bi bi-check-circle-fill text-primary me-2"></i>
-                                        <span>GDP growth often masks underlying social problems</span>
-                                    </div>
-                                </li>
-                                <li class="mb-3">
-                                    <div class="d-flex align-items-center">
-                                        <i class="bi bi-check-circle-fill text-primary me-2"></i>
-                                        <span>Wealth doesn't guarantee wellbeing</span>
-                                    </div>
-                                </li>
-                                <li class="mb-3">
-                                    <div class="d-flex align-items-center">
-                                        <i class="bi bi-check-circle-fill text-primary me-2"></i>
-                                        <span>True progress requires measuring human impact</span>
-                                    </div>
-                                </li>
-                                <li class="mb-3">
-                                    <div class="d-flex align-items-center">
-                                        <i class="bi bi-check-circle-fill text-primary me-2"></i>
-                                        <span>Policy decisions must prioritize human welfare</span>
-                                    </div>
-                                </li>
+                <div class="domains">
+                    <article class="domain">
+                        <img class="domain-img" src="/images/health-hospital.webp" alt="A long, empty hospital corridor" width="1000" height="750" loading="lazy">
+                        <div class="domain-body">
+                            <h3>Illness</h3>
+                            <ul class="indicators">
+                                <li><a href="https://www.who.int/data/gho/data/themes/mortality-and-global-health-estimates/ghe-life-expectancy-and-healthy-life-expectancy" target="_blank" rel="noopener">Healthy life years lost</a><span>Years lost to disease, injury, despair and early death · WHO</span></li>
+                                <li><a href="https://data.worldbank.org/indicator/SP.DYN.IMRT.IN" target="_blank" rel="noopener">Infant mortality</a><span>Babies who die before their first birthday · World Bank</span></li>
                             </ul>
                         </div>
+                    </article>
+                    <article class="domain">
+                        <div class="domain-img domain-art" aria-hidden="true">
+                            <svg viewBox="0 0 200 150" preserveAspectRatio="xMidYMid slice"><rect width="200" height="150" fill="#22304f"/><g fill="#f0a73b"><rect x="30" y="80" width="18" height="50" rx="2"/><rect x="58" y="60" width="18" height="70" rx="2" opacity=".75"/><rect x="86" y="95" width="18" height="35" rx="2"/><rect x="114" y="45" width="18" height="85" rx="2" opacity=".75"/><rect x="142" y="100" width="18" height="30" rx="2"/></g><line x1="20" y1="130" x2="180" y2="130" stroke="#fff" stroke-opacity=".4"/></svg>
+                        </div>
+                        <div class="domain-body">
+                            <h3>Gender inequality</h3>
+                            <ul class="indicators">
+                                <li><a href="https://hdr.undp.org/data-center/thematic-composite-indices/gender-inequality-index#/indicies/GII" target="_blank" rel="noopener">Gender Inequality Index</a><span>Women's losses in health, power and work · UNDP</span></li>
+                            </ul>
+                        </div>
+                    </article>
+                    <article class="domain">
+                        <div class="domain-img domain-art" aria-hidden="true">
+                            <svg viewBox="0 0 200 150" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#1b2550"/><stop offset="1" stop-color="#3a2a5a"/></linearGradient></defs><rect width="200" height="150" fill="url(#g1)"/><path d="M0 105 C30 80 50 120 80 95 S130 60 160 85 S190 100 200 90" fill="none" stroke="#f0a73b" stroke-width="3" opacity=".9"/><path d="M0 120 C40 100 60 130 100 112 S160 95 200 110" fill="none" stroke="#fff" stroke-width="1.5" opacity=".35"/><circle cx="150" cy="40" r="16" fill="#f0a73b" opacity=".25"/></svg>
+                        </div>
+                        <div class="domain-body">
+                            <h3>Violence</h3>
+                            <ul class="indicators">
+                                <li><a href="https://ucdp.uu.se/" target="_blank" rel="noopener">Violent deaths</a><span>Homicides plus deaths in war, per 100,000 · UNODC, WHO, UCDP</span></li>
+                            </ul>
+                        </div>
+                    </article>
+                    <article class="domain">
+                        <img class="domain-img" src="/images/justice-prison.webp" alt="Cell block corridor in Philadelphia's historic Moyamensing Prison" width="1000" height="714" loading="lazy">
+                        <div class="domain-body">
+                            <h3>Unfreedom</h3>
+                            <ul class="indicators">
+                                <li><a href="https://www.walkfree.org/global-slavery-index/" target="_blank" rel="noopener">Unfree people</a><span>Prisoners plus people in modern slavery, per 100,000 · World Prison Brief, Walk Free</span></li>
+                            </ul>
+                        </div>
+                    </article>
+                    <article class="domain">
+                        <img class="domain-img" src="/images/social-encampment.webp" alt="Tents of an encampment of unhoused people beneath a bridge in Chicago" width="1000" height="750" loading="lazy">
+                        <div class="domain-body">
+                            <h3>Deprivation</h3>
+                            <ul class="indicators">
+                                <li><a href="https://data.worldbank.org/indicator/SN.ITK.DEFC.ZS" target="_blank" rel="noopener">Undernourishment</a><span>People without enough food · FAO</span></li>
+                                <li><a href="https://data.worldbank.org/indicator/SI.POV.DDAY" target="_blank" rel="noopener">Extreme poverty</a><span>People living on under $3 a day · World Bank</span></li>
+                                <li><a href="https://www.unhcr.org/refugee-statistics/" target="_blank" rel="noopener">Forced displacement</a><span>Refugees and people driven from their homes · UNHCR</span></li>
+                            </ul>
+                        </div>
+                    </article>
+                    <article class="domain">
+                        <img class="domain-img" src="/images/animals-cages.webp" alt="Egg-laying hens crammed into wire battery cages" width="1000" height="666" loading="lazy">
+                        <div class="domain-body">
+                            <h3>Animal suffering</h3>
+                            <ul class="indicators">
+                                <li><a href="https://api.worldanimalprotection.org/" target="_blank" rel="noopener">Animals slaughtered</a><span>Land animals killed per person, adjusted for weak protection laws · FAO, World Animal Protection</span></li>
+                            </ul>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="consider">
+                    <img class="consider-img" src="/images/environment-smog.webp" alt="Panorama of São Paulo under a layer of air pollution" width="2000" height="731" loading="lazy">
+                    <div class="consider-body">
+                        <h3>Considered, and why they're not counted separately</h3>
+                        <ul class="consider-list">
+                            <li><strong>Suicide, depression, alcoholism and drug deaths</strong> are already inside healthy life years lost. Adding them again would count them twice.</li>
+                            <li><strong>The Global Peace Index</strong> mixes in military spending and weapons exports, and already includes incarceration. We count violent deaths directly instead.</li>
+                            <li><strong>Unemployment</strong> causes suffering mainly through illness, poverty and crime, which we measure directly.</li>
+                            <li><strong>Air pollution and unsafe water</strong> cause suffering through illness and early death, already counted in healthy life years lost.</li>
+                            <li><strong>Illiteracy and low test scores</strong> measure lost capability and future risk rather than suffering today. They'll appear on country pages.</li>
+                            <li><strong>The Fragile States Index</strong> measures risk and governance; its real harms are already counted in violence, unfreedom and deprivation.</li>
+                        </ul>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </section>
 
-    <!-- About Section -->
-    <div class="about-section py-5">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-10">
-                    <h2 class="text-center mb-5">About the GDS Initiative</h2>
-                    
-                    <div class="row align-items-center">
-                        <div class="col-lg-6">
-                            <div class="about-content">
-                                <p class="lead mb-4">The Gross Domestic Suffering index was developed by economists and social scientists committed to measuring what truly matters for human wellbeing.</p>
-                                
-                                <p class="mb-4">Building on the work of happiness economists and alternatives like Bhutan's Gross National Happiness index, GDS offers a practical, data-driven framework for evaluating economic success through the lens of human suffering.</p>
-                                
-                                <p class="mb-4">Our methodology is transparent, regularly updated, and open to refinement as we work with governments, NGOs, and researchers worldwide.</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="about-quote">
-                                <div class="quote-icon">
-                                    <i class="bi bi-quote"></i>
-                                </div>
-                                <blockquote class="mb-0">
-                                    "We believe minimizing suffering is the foundation upon which all other forms of prosperity must be built."
-                                </blockquote>
-                            </div>
-                        </div>
+        <!-- Findings -->
+        <section class="section section-dark" id="prototype" aria-labelledby="prototype-title">
+            <div class="container">
+                <p class="eyebrow center">Findings</p>
+                <h2 id="prototype-title" class="section-title">GDS reveals what GDP conceals</h2>
+                <p class="section-lead">GDS scores 185 countries for every year from 2000 to 2023, on a fixed scale from 0 (least suffering) to 100 (most). Here is what the 2023 results show.</p>
+                <div class="stats">
+                    <div class="stat">
+                        <span class="stat-num">82<small>nd</small></span>
+                        <span class="stat-label">United States, of 185 countries, behind China, Cuba, Vietnam and Sri Lanka despite the world's largest GDP</span>
                     </div>
-
-                    <div class="row mt-5">
-                        <div class="col-md-4">
-                            <div class="about-feature text-center">
-                                <div class="feature-icon mb-3">
-                                    <i class="bi bi-people-fill"></i>
-                                </div>
-                                <h3 class="h5">Expert Team</h3>
-                                <p>Leading economists and social scientists</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="about-feature text-center">
-                                <div class="feature-icon mb-3">
-                                    <i class="bi bi-graph-up-arrow"></i>
-                                </div>
-                                <h3 class="h5">Data-Driven</h3>
-                                <p>Rigorous methodology and analysis</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="about-feature text-center">
-                                <div class="feature-icon mb-3">
-                                    <i class="bi bi-globe"></i>
-                                </div>
-                                <h3 class="h5">Global Impact</h3>
-                                <p>Working with organizations worldwide</p>
-                            </div>
-                        </div>
+                    <div class="stat">
+                        <span class="stat-num">83%</span>
+                        <span class="stat-label">of countries suffered less in 2023 than in 2000. The world score fell from 52.6 to 45.4</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-num">872</span>
+                        <span class="stat-label">Americans per 100,000 are in prison or modern slavery, among the highest rates of unfreedom on Earth</span>
+                    </div>
+                </div>
+                <div class="insights">
+                    <div class="insight">
+                        <h3>Wealth isn't the whole story</h3>
+                        <p>Japan, Switzerland, Germany, Norway and Sweden suffer least. But dozens of poorer countries, from Albania to Vietnam, suffer less than the United States, which suggests that how a society uses its wealth matters more than how much it produces.</p>
+                    </div>
+                    <div class="insight">
+                        <h3>GDP hides the costs</h3>
+                        <p>High GDP can coexist with mass incarceration, violent death and billions of animals slaughtered: costs that GDP counts as output, or doesn't count at all. At the other end, South Sudan, Ukraine, Haiti and Somalia carry the heaviest burdens of war, hunger and illness.</p>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </section>
 
-    <!-- Data Highlights Section -->
-    <div class="data-highlights py-5">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-10">
-                    <h2 class="text-center mb-5">GDS REVEALS WHAT GDP CONCEALS</h2>
-                    
-                    <div class="row g-4">
-                        <div class="col-md-6">
-                            <div class="highlight-card">
-                                <div class="d-flex">
-                                    <div class="highlight-icon me-3">
-                                        <i class="bi bi-trophy-fill"></i>
-                                    </div>
-                                    <div>
-                                        <h3 class="h5 mb-2">Nordic Leadership</h3>
-                                        <p>Nordic countries lead in minimizing suffering through strong social supports</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="highlight-card">
-                                <div class="d-flex">
-                                    <div class="highlight-icon me-3">
-                                        <i class="bi bi-exclamation-triangle-fill"></i>
-                                    </div>
-                                    <div>
-                                        <h3 class="h5 mb-2">US Ranking</h3>
-                                        <p>The United States ranks 59th globally despite its high GDP, primarily due to healthcare failures, mental health crises, and mass incarceration</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="highlight-card">
-                                <div class="d-flex">
-                                    <div class="highlight-icon me-3">
-                                        <i class="bi bi-lightbulb-fill"></i>
-                                    </div>
-                                    <div>
-                                        <h3 class="h5 mb-2">Developing Nations</h3>
-                                        <p>Many developing nations outperform wealthy countries by prioritizing basic needs and community wellbeing</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="highlight-card">
-                                <div class="d-flex">
-                                    <div class="highlight-icon me-3">
-                                        <i class="bi bi-shield-fill-exclamation"></i>
-                                    </div>
-                                    <div>
-                                        <h3 class="h5 mb-2">GDP Limitations</h3>
-                                        <p>High GDP often masks severe inequality, poor health outcomes, and environmental degradation</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <!-- Compare -->
+        <section class="section" id="compare" aria-labelledby="compare-title">
+            <div class="container">
+                <p class="eyebrow eyebrow-dark center">Alternatives to GDP</p>
+                <h2 id="compare-title" class="section-title">How GDS compares to other measures of progress</h2>
+                <p class="section-lead">GDS builds on decades of work to find a better alternative to GDP. Here is where it fits. <a href="/blog/alternative-to-gdp/">Read our full guide to the alternatives to GDP →</a></p>
+                <div class="table-wrap">
+                    <table class="compare">
+                        <thead>
+                            <tr><th scope="col">Measure</th><th scope="col">What it captures</th><th scope="col">The question it answers</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><th scope="row">Gross Domestic Product (GDP)</th><td>Market value of all final goods and services</td><td>How much did we produce?</td></tr>
+                            <tr><th scope="row">Misery Index (Okun)</th><td>Inflation rate plus unemployment rate</td><td>How painful is the macro-economy?</td></tr>
+                            <tr><th scope="row">Human Development Index (HDI)</th><td>Life expectancy, education and income</td><td>What capabilities do people have?</td></tr>
+                            <tr><th scope="row">Genuine Progress Indicator (GPI)</th><td>Consumption adjusted for inequality, environmental and social costs, and unpaid work</td><td>Is economic activity actually improving welfare?</td></tr>
+                            <tr><th scope="row">Gross National Happiness (Bhutan)</th><td>Nine domains including psychological wellbeing, community and culture</td><td>Are people living good lives?</td></tr>
+                            <tr><th scope="row">World Happiness Report</th><td>Survey-based life evaluations</td><td>How satisfied are people with their lives?</td></tr>
+                            <tr><th scope="row">Happy Planet Index</th><td>Wellbeing and life expectancy relative to ecological footprint</td><td>How efficiently do we produce good lives?</td></tr>
+                            <tr class="highlight"><th scope="row">Gross Domestic Suffering (GDS)</th><td>Preventable human and animal suffering: illness, gender inequality, violence, unfreedom, deprivation and animal suffering</td><td>How much avoidable misery remains, and where?</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
 
-                    <div class="text-center mt-5">
-                        <a href="#" class="btn btn-outline-primary btn-lg">View the complete rankings</a>
+        <!-- About -->
+        <section class="section section-tint" id="about" aria-labelledby="about-title">
+            <div class="container split split-reverse">
+                <div class="pull">
+                    <svg class="pull-mark" viewBox="0 0 48 48" aria-hidden="true"><path d="M8 34c0-10 4-17 13-21l2 4c-5 3-7 6-7 10h6v11H8v-4zm20 0c0-10 4-17 13-21l2 4c-5 3-7 6-7 10h6v11H28v-4z" fill="currentColor"/></svg>
+                    <p>What if we prioritized minimizing suffering rather than maximizing profit?</p>
+                </div>
+                <div>
+                    <p class="eyebrow eyebrow-dark">About the initiative</p>
+                    <h2 id="about-title">A transparent, open measure of preventable suffering</h2>
+                    <p>Gross Domestic Suffering was created by Adam Braus, author of <a href="https://www.amazon.com/dp/B0B7KF4VPS" target="_blank" rel="noopener"><em>The Future of Good</em></a>, and is a research project of <a href="https://elton.university" target="_blank" rel="noopener">Elton University</a>, a 501(c)(3) nonprofit university. <a href="/about/">Learn about the project →</a></p>
+                    <p>Building on the work of happiness economists and alternatives like Bhutan's Gross National Happiness, GDS offers a practical, data-driven way to judge economic success through the lens of suffering.</p>
+                    <p>The methodology, data and code are public, and they will keep improving as we work with researchers, NGOs and policymakers. We believe minimizing suffering is the foundation for every other kind of prosperity.</p>
+                    <div class="pillars">
+                        <div><strong>Open</strong><span>Public data, open code</span></div>
+                        <div><strong>Rigorous</strong><span>Documented, testable methods</span></div>
+                        <div><strong>Global</strong><span>185 countries, 2000–2023</span></div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </section>
 
-    <!-- Call to Action Section -->
-    <div class="cta-section py-5">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8 text-center">
-                    <h2 class="mb-4">Join the Movement</h2>
-                    <p class="lead mb-5">The GDS Index is challenging economic orthodoxy and redefining success for nations worldwide.</p>
-                    
-                    <div class="row g-4 mb-5">
-                        <div class="col-md-6">
-                            <div class="cta-card">
-                                <div class="d-flex align-items-center">
-                                    <i class="bi bi-globe me-3"></i>
-                                    <span>Explore the interactive global rankings</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="cta-card">
-                                <div class="d-flex align-items-center">
-                                    <i class="bi bi-graph-up me-3"></i>
-                                    <span>Compare your country's performance across all indicators</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="cta-card">
-                                <div class="d-flex align-items-center">
-                                    <i class="bi bi-file-earmark-text me-3"></i>
-                                    <span>Download our comprehensive methodology report</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="cta-card">
-                                <div class="d-flex align-items-center">
-                                    <i class="bi bi-envelope me-3"></i>
-                                    <span>Sign up for quarterly GDS updates</span>
-                                </div>
-                            </div>
-                        </div>
+        <!-- From the blog -->
+        <section class="section" id="blog" aria-labelledby="blog-title">
+            <div class="container">
+                <p class="eyebrow eyebrow-dark center">From the blog</p>
+                <h2 id="blog-title" class="section-title">Understanding GDP and its alternatives</h2>
+                <p class="section-lead">Plain-language guides to what GDP measures, what it misses, and how we can measure progress better.</p>
+                <div class="post-grid">
+                <a class="post-card" href="/blog/alternative-to-gdp/">
+                    <img src="/images/hero-earth-night.webp" alt="Satellite composite of the Earth's city lights at night" width="2400" height="1200" loading="lazy">
+                    <div class="post-card-body">
+                        <span class="tag">Beyond GDP</span>
+                        <h3>The Best Alternative to GDP? 7 Ways to Measure Progress</h3>
+                        <p>The Genuine Progress Indicator, the Human Development Index, Gross National Happiness and four more alternatives to GDP, compared side by side.</p>
+                        <span class="read">Read the article →</span>
                     </div>
-
-                    <p class="cta-quote">Together, we can build economies that prioritize human dignity over abstract growth metrics.</p>
-                    
-                    <div class="mt-4">
-                        <a href="#" class="btn btn-primary btn-lg me-3">Get Started</a>
-                        <a href="#" class="btn btn-outline-primary btn-lg">Learn More</a>
+                </a>
+                <a class="post-card" href="/blog/limitations-of-gdp/">
+                    <img src="/images/environment-smog.webp" alt="Panorama of São Paulo beneath a layer of air pollution" width="2000" height="731" loading="lazy">
+                    <div class="post-card-body">
+                        <span class="tag">Economics explained</span>
+                        <h3>The Limitations of GDP: 8 Things GDP Doesn't Measure</h3>
+                        <p>Unpaid care, inequality, nature, health and suffering: what GDP leaves out, and why it matters for policy.</p>
+                        <span class="read">Read the article →</span>
                     </div>
+                </a>
+                <a class="post-card" href="/blog/misery-index/">
+                    <img src="/images/social-encampment.webp" alt="Tents of an encampment of unhoused people beneath a bridge in Chicago" width="1000" height="750" loading="lazy">
+                    <div class="post-card-body">
+                        <span class="tag">Economics explained</span>
+                        <h3>What Is the Misery Index? Definition, Formula and What It Misses</h3>
+                        <p>Arthur Okun's two-number gauge of economic pain: how it works, how politicians use it, and what a real measure of misery would include.</p>
+                        <span class="read">Read the article →</span>
+                    </div>
+                </a>
+                </div>
+                <div class="section-more">
+                    <a class="btn btn-outline" href="/blog/">All articles</a>
+                    <a class="btn btn-outline" href="/faq/">Read the FAQ</a>
                 </div>
             </div>
-        </div>
-    </div>
+        </section>
 
-    <!-- Footer -->
-    <footer class="bg-dark text-white py-4">
-        <div class="container text-center">
-            <p>&copy; 2024 Gross Domestic Suffering. All rights reserved.</p>
+        <!-- CTA -->
+        <section class="cta" id="join" aria-labelledby="join-title">
+            <div class="container narrow center">
+                <h2 id="join-title">Join the movement</h2>
+                <p class="lead">Together, we can build economies that put human dignity ahead of abstract growth metrics.</p>
+                <div class="cta-grid">
+                    <a class="cta-item" href="https://github.com/ajbraus/gds" target="_blank" rel="noopener"><strong>Review the methodology</strong><span>Read, critique and improve the index on GitHub</span></a>
+                    <a class="cta-item" href="https://github.com/ajbraus/gds/issues" target="_blank" rel="noopener"><strong>Suggest an indicator</strong><span>Propose data we should include</span></a>
+                    <a class="cta-item" href="https://github.com/ajbraus/gds/subscription" target="_blank" rel="noopener"><strong>Get updates</strong><span>Watch the repository for new releases</span></a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <div>
+                <p class="footer-brand">Gross Domestic Suffering</p>
+                <p class="footer-note">A project of <a href="https://elton.university" target="_blank" rel="noopener">Elton University</a>, a 501(c)(3) nonprofit university.</p>
+                <p class="footer-note">&copy; 2026 Gross Domestic Suffering Initiative.</p>
+            </div>
+            <ul class="footer-links" aria-label="Footer">
+                <li><a href="/">Home</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><a href="/blog/">Blog</a></li>
+                <li><a href="/faq/">FAQ</a></li>
+                <li><a href="/blog/alternative-to-gdp/">Alternatives to GDP</a></li>
+                <li><a href="/blog/limitations-of-gdp/">Limitations of GDP</a></li>
+                <li><a href="/blog/misery-index/">Misery index</a></li>
+                <li><a href="https://github.com/ajbraus/gds" target="_blank" rel="noopener">GitHub</a></li>
+                <li><a href="/about/#credits">Image credits</a></li>
+            </ul>
+            <a class="to-top" href="#top">Back to top ↑</a>
         </div>
     </footer>
 
-    <!-- Bootstrap JS Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const toggle = document.querySelector('.nav-toggle');
+        const links = document.getElementById('nav-links');
+        toggle.addEventListener('click', () => {
+            const open = toggle.getAttribute('aria-expanded') === 'true';
+            toggle.setAttribute('aria-expanded', String(!open));
+            links.classList.toggle('open', !open);
+        });
+        links.addEventListener('click', e => {
+            if (e.target.tagName === 'A') {
+                toggle.setAttribute('aria-expanded', 'false');
+                links.classList.remove('open');
+            }
+        });
+    </script>
 </body>
-</html> 
+</html>

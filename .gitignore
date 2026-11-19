@@ -18,3 +18,11 @@ Thumbs.db
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log* 
+# Large raw download; re-fetch with pipeline/fetch.sh
+data/raw/walkfree/*.pdf
+__pycache__/
+
+# Raw source downloads (re-fetch with: bash pipeline/fetch.sh)
+data/raw/
+# Personal notes
+todo.txt
