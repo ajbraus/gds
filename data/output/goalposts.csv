@@ -1,10 +1,14 @@
 indicator,label,unit,transform,best_goalpost,worst_goalpost
-illness_burden,Healthy life years lost to illness and early death,years below 75 (WHO HALE),linear,4.200000000000003,30.700000000000003
+premature_death,Premature adult death,"probability of dying between 15 and 60, per 1,000 (WHO)",log,3.9512437185814275,6.133560205727386
+ill_health_share,Share of life lived in ill health,"% of life expectancy, (LE - HALE) / LE (WHO)",linear,11.72469879017689,15.744157441574414
 infant_mortality,Infant mortality,"deaths per 1,000 live births",log,0.7884573603642703,4.487989939085079
+substance_deaths,Alcohol and drug deaths,deaths from alcohol and drug use disorders per 100k (WHO GHE),log,-1.8717603960503588,2.993761640153995
 gender_inequality,Gender Inequality Index,0-1 (UNDP),linear,0.043625000000000004,0.69475
-violence,Violent deaths,"homicide (UNODC, WHO fallback) + conflict deaths (UCDP) per 100k",log1p,0.1939613207269218,3.897226555550451
-unfreedom,Unfree people,prisoners + people in modern slavery per 100k,log,4.867534450455582,7.392662540235083
+lgbti_laws,Anti-LGBTI laws,"LGBTI Composite Policy Index, sign reversed (Velasco, via OWID)",linear,-13.866700000000002,2.858409999999987
+violence,Violent deaths,"homicide (UNODC, WHO fallback) + conflict deaths (UCDP) + suicide (WHO) per 100k",log1p,1.3792802471431291,4.107351537948377
+captivity,People held captive,prisoners + people in modern slavery per 100k,log,4.804021044733257,7.38025578842646
+overwork,Overwork,% of employed working 49+ hours a week (ILO),log,0.9197153980794956,3.7924651202121327
 undernourishment,Undernourishment,% of population (FAO),log,0.9162907318741551,3.6696958556279364
 extreme_poverty,Extreme poverty,"% below $3.00/day, 2021 PPP (World Bank)",log1p,0.0,4.224457612596131
 displacement,Forcibly displaced people,"refugees, asylum seekers and IDPs by origin per 100k (UNHCR)",log1p,0.0,9.434876061132957
-animal_suffering,Animal suffering,welfare-adjusted land animals slaughtered per person,log1p,0.418233067101785,3.482357324307799
+animal_suffering,Farm-animal mistreatment,"Animal Protection Index 2020 farm-animal grade, A = 0 to G = 100",linear,0.0,100.0

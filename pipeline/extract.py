@@ -1,7 +1,8 @@
 """Extract country tables that are only published as PDF/HTML into data/interim/.
 
 - Walk Free Global Slavery Index 2023: prevalence of modern slavery per 1,000 people
-- World Animal Protection Animal Protection Index 2020: overall grade A-G
+- World Animal Protection Animal Protection Index 2020: overall grade A-G, and the
+  farm-animal grade from each country profile
 
 Usage (repo root): python3 -I pipeline/extract.py
 Requires pdftotext (poppler).
@@ -59,6 +60,22 @@ def animal_protection():
     print(f"Animal Protection Index 2020: {len(df)} countries")
 
 
+def animal_protection_farm():
+    """Grade for 'Protecting animals used in farming' from each API 2020 country profile."""
+    grades = pd.read_csv(f"{INTERIM}/api2020_grades.csv")
+    rows = []
+    for iso, name, overall in grades.itertuples(index=False):
+        s = open(f"{RAW}/wap/countries/{name.lower().replace(' ', '-')}.html", encoding="utf8").read()
+        t = html.unescape(re.sub(r"<[^>]+>", "|", re.sub(r"<script.*?</script>|<style.*?</style>", "", s, flags=re.S)))
+        m = re.search(r"\|([A-G])\|Protecting animals used in farming\|", re.sub(r"\s*\|[\s|]*", "|", t))
+        # The Netherlands profile has no farming section; fall back to its overall grade
+        rows.append((iso, name, m.group(1) if m else overall, "farming" if m else "overall (no farming section)"))
+    df = pd.DataFrame(rows, columns=["iso3", "name_in_source", "farm_grade", "grade_basis"])
+    df.to_csv(f"{INTERIM}/api2020_farm_grades.csv", index=False)
+    print(f"Animal Protection Index 2020 farm-animal grades: {len(df)} countries")
+
+
 if __name__ == "__main__":
     slavery()
     animal_protection()
+    animal_protection_farm()

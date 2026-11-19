@@ -81,7 +81,7 @@ POSTS = [
                         <tr><th scope="row">Gross National Happiness</th><td>Holistic survey index</td><td>Bhutan</td><td>National policy screening</td></tr>
                         <tr><th scope="row">Happy Planet Index</th><td>Efficiency ratio</td><td>~150</td><td>Sustainability of wellbeing</td></tr>
                         <tr><th scope="row">OECD Better Life Index</th><td>Interactive dashboard</td><td>OECD members and partners</td><td>Exploring trade-offs</td></tr>
-                        <tr class="highlight"><th scope="row">Gross Domestic Suffering</th><td>Outcome composite (suffering)</td><td>185</td><td>Finding and reducing preventable misery</td></tr>
+                        <tr class="highlight"><th scope="row">Gross Domestic Suffering</th><td>Outcome composite (suffering)</td><td>188</td><td>Finding and reducing preventable misery</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -94,7 +94,7 @@ POSTS = [
                 <li><strong>Measurability.</strong> Deaths, disease, imprisonment and hunger leave hard data. We can count them across nearly every country.</li>
                 <li><strong>Actionability.</strong> Each indicator points to a policy lever: clinics, sentencing reform, food security, animal protection law.</li>
             </ul>
-            <p>GDS combines illness, gender inequality, violence, unfreedom, deprivation and animal suffering into one transparent score. <a href="/#framework">See the full framework</a>, or read our companion pieces on <a href="/blog/limitations-of-gdp/">the limitations of GDP</a> and <a href="/blog/misery-index/">the misery index</a>.</p>
+            <p>GDS combines illness, gender and sexual discrimination, violence, unfreedom, deprivation and animal suffering into one transparent score. <a href="/#framework">See the full framework</a>, or read our companion pieces on <a href="/blog/limitations-of-gdp/">the limitations of GDP</a> and <a href="/blog/misery-index/">the misery index</a>.</p>
 ''',
 "sources": [
     ('Kuznets, S. (1934). <em>National Income, 1929–1932</em>. Senate Document No. 124, 73rd Congress.', 'https://www.nber.org/books-and-chapters/national-income-1929-1932'),
@@ -168,7 +168,7 @@ POSTS = [
 
             <h2>Does this mean GDP is useless?</h2>
             <p>No. GDP is the right tool for tracking recessions, tax revenue and economic capacity. The problem is using it alone. As the Stiglitz commission put it, "what we measure affects what we do."<sup><a href="#s5">5</a></sup> If GDP is the only scoreboard, policies that raise output while increasing suffering look like success.</p>
-            <p>That's why we're building <a href="/">Gross Domestic Suffering</a>, an index that puts the missing costs back in view: infant mortality, disease burden, suicide, depression, addiction, violence, incarceration, gender inequality and animal suffering. For a tour of other approaches, read <a href="/blog/alternative-to-gdp/">The best alternative to GDP? 7 ways to measure progress</a>.</p>
+            <p>That's why we're building <a href="/">Gross Domestic Suffering</a>, an index that puts the missing costs back in view: infant mortality, early death, suicide, addiction, violence, incarceration, overwork, discrimination and the mistreatment of animals. For a tour of other approaches, read <a href="/blog/alternative-to-gdp/">The best alternative to GDP? 7 ways to measure progress</a>.</p>
 ''',
 "sources": [
     ('US Bureau of Economic Analysis. What to know about GDP.', 'https://www.bea.gov/resources/learning-center/what-to-know-gdp'),
@@ -233,11 +233,11 @@ POSTS = [
                 <table class="compare">
                     <thead><tr><th scope="col"></th><th scope="col">Misery index</th><th scope="col">Gross Domestic Suffering</th></tr></thead>
                     <tbody>
-                        <tr><th scope="row">Inputs</th><td>2 (unemployment, inflation)</td><td>9 indicators in six pillars: illness, gender inequality, violence, unfreedom, deprivation and animal suffering</td></tr>
+                        <tr><th scope="row">Inputs</th><td>2 (unemployment, inflation)</td><td>12 indicators in six pillars: illness, gender and sexual discrimination, violence, unfreedom, deprivation and animal suffering</td></tr>
                         <tr><th scope="row">What it measures</th><td>Macroeconomic discomfort</td><td>Preventable human and animal suffering</td></tr>
-                        <tr><th scope="row">Captures illness?</th><td>No</td><td>Yes: healthy life years lost, infant mortality</td></tr>
-                        <tr><th scope="row">Captures despair?</th><td>No</td><td>Yes: suicide, depression and addiction, inside illness</td></tr>
-                        <tr><th scope="row">Captures violence and unfreedom?</th><td>No</td><td>Yes: homicide, war deaths, prisoners, modern slavery</td></tr>
+                        <tr><th scope="row">Captures illness?</th><td>No</td><td>Yes: premature death, infant mortality, life lived in ill health</td></tr>
+                        <tr><th scope="row">Captures despair?</th><td>No</td><td>Yes: suicide and deaths from alcohol and drugs</td></tr>
+                        <tr><th scope="row">Captures violence and unfreedom?</th><td>No</td><td>Yes: homicide, war deaths, prisoners, modern slavery, overwork</td></tr>
                         <tr><th scope="row">Best use</th><td>Quick read on the business cycle</td><td>Setting priorities to end avoidable misery</td></tr>
                     </tbody>
                 </table>

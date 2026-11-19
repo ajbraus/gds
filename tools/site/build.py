@@ -11,6 +11,7 @@ import datetime, os, sys, re, html
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from layout import page, ORG, SITE, ELTON, breadcrumbs_ld, breadcrumbs_html
 from posts import POSTS, DATE, ELTON_CTA
+import methods
 
 REPO = sys.argv[1]
 TODAY = os.environ.get("GDS_TODAY") or datetime.date.today().isoformat()
@@ -147,29 +148,29 @@ write("blog/index.html", page("Blog: Alternatives to GDP and Measuring Suffering
 FAQ = [
     ("The basics", [
         ("What is Gross Domestic Suffering?",
-         "Gross Domestic Suffering (GDS) is an open index that ranks countries by the preventable suffering their people and animals experience. It combines nine indicators in six pillars (illness, gender inequality, violence, unfreedom, deprivation and animal suffering) into one score from 0 to 100. Higher means more suffering."),
+         "Gross Domestic Suffering (GDS) is an open index that ranks countries by the preventable suffering their people and animals experience. It combines 12 indicators in six pillars (illness, gender and sexual discrimination, violence, unfreedom, deprivation and animal suffering) into one score from 0 to 100. Higher means more suffering."),
         ("Is GDS an alternative to GDP?",
          'Yes. GDS is an alternative to GDP for judging national success. GDP measures what a country produces; GDS measures the suffering that production fails to prevent. We see it as a complement to GDP, not a replacement for economic statistics. <a href="/blog/alternative-to-gdp/">Compare GDS with other alternatives to GDP</a>.'),
         ("What are the limitations of GDP?",
          'GDP ignores unpaid and household work, counts harmful spending (pollution clean-up, prisons, treating preventable disease) as growth, hides inequality, ignores the depletion of nature, and says nothing about illness, despair or suffering. <a href="/blog/limitations-of-gdp/">Read the 8 limitations of GDP</a>.'),
         ("How is GDS different from the misery index?",
-         'The economic misery index, created by Arthur Okun, adds the inflation rate to the unemployment rate. GDS measures suffering directly across illness, gender inequality, violence, unfreedom, deprivation and animal suffering, rather than through two macroeconomic proxies. <a href="/blog/misery-index/">Learn more about the misery index</a>.'),
+         'The economic misery index, created by Arthur Okun, adds the inflation rate to the unemployment rate. GDS measures suffering directly across illness, gender and sexual discrimination, violence, unfreedom, deprivation and animal suffering, rather than through two macroeconomic proxies. <a href="/blog/misery-index/">Learn more about the misery index</a>.'),
         ("Is GDS the opposite of Gross National Happiness?",
          "They are complementary. Bhutan's Gross National Happiness and the World Happiness Report ask how good life is. GDS asks how much preventable suffering remains, on the view that ending misery is the most urgent and most widely shared goal of public policy."),
     ]),
     ("The methodology", [
         ("Which indicators does GDS use?",
-         'The current framework has nine indicators in six pillars, each framed as suffering. Illness: healthy life years lost to disease, despair and early death, and infant mortality. Gender inequality: the UNDP Gender Inequality Index. Violence: homicides plus deaths in war. Unfreedom: prisoners plus people in modern slavery. Deprivation: undernourishment, extreme poverty and forced displacement. Animal suffering: land animals slaughtered per person, adjusted for weak protection laws. Suicide, depression and addiction are counted inside illness, so they aren’t added twice. <a href="/#framework">See the framework</a>.'),
+         'The framework has 12 indicators in six pillars, each framed as suffering. Illness: premature adult death, infant mortality, the share of life lived in ill health, and deaths from alcohol and drug use disorders. Gender and sexual discrimination: the UNDP Gender Inequality Index (85%) and anti-LGBTI laws (15%). Violence: homicides, war deaths and suicides. Unfreedom: prisoners plus people in modern slavery, and overwork. Deprivation: undernourishment, extreme poverty and forced displacement. Animal suffering: how weakly the law protects farm animals. <a href="/methods/">Read the full methods</a>.'),
         ("Where does the data come from?",
-         "From public, internationally comparable primary sources: the World Health Organization, World Bank, UN Development Programme, UN Office on Drugs and Crime, Uppsala Conflict Data Program, World Prison Brief, Walk Free, the UN Food and Agriculture Organization, UNHCR and World Animal Protection. The full dataset and code are open on GitHub."),
+         "From public, internationally comparable primary sources: the World Health Organization, World Bank, UN Development Programme, UN Office on Drugs and Crime, Uppsala Conflict Data Program, World Prison Brief, Walk Free, the UN Food and Agriculture Organization, International Labour Organization, UNHCR, World Animal Protection and Our World in Data. The full dataset and code are open on GitHub."),
         ("Why does GDS include animal suffering?",
-         "Tens of billions of animals are raised and killed each year in conditions shaped by national laws and markets. Suffering does not stop at the species line. Animal suffering is one of the six pillars of every GDS score. It counts land animals slaughtered per person, adjusted for how weak a country's animal protection laws are."),
+         "Tens of billions of animals are raised and killed each year in conditions shaped by national laws and markets. Suffering does not stop at the species line. Animal suffering is one of the six pillars of every GDS score. It measures how animals are treated, not how many are eaten, using World Animal Protection\'s grades for farm-animal protection laws."),
         ("How are the indicators weighted?",
          "Each indicator is scaled from 0 to 100 against fixed goalposts that never change between years, so scores can be compared across countries and over time. The six pillars are weighted equally. We also test 1,000 random weightings and publish the range of ranks each country could receive."),
         ("Where does the United States rank?",
-         "In 2023 the United States ranked 82nd of 185 countries, behind countries with a fraction of its GDP, such as China, Cuba, Vietnam and Sri Lanka. Its worst pillars are unfreedom (872 people per 100,000 in prison or modern slavery) and animal suffering."),
+         "In 2023 the United States ranked 61st of 188 countries, behind countries with a fraction of its GDP, such as China, Albania, Kazakhstan and Türkiye. Its worst pillars are animal suffering, illness, driven by overdose and alcohol deaths, and unfreedom, with 872 people per 100,000 in prison or modern slavery."),
         ("Which countries have the least suffering?",
-         "In 2023, Japan, Switzerland, Germany, Norway and Sweden had the lowest suffering scores. South Sudan, Ukraine, Haiti, Somalia and Nigeria had the highest."),
+         "In 2023, the Netherlands, Sweden, Denmark, Austria and Switzerland had the lowest suffering scores. Somalia, Haiti, the Central African Republic, South Sudan and Burkina Faso had the highest."),
     ]),
     ("The project", [
         ("Who runs Gross Domestic Suffering?",
@@ -270,7 +271,7 @@ body = f'''        <section class="page-hero">
             <h2>Our mission</h2>
             <p>We believe the success of a nation should be judged by how much avoidable suffering its people and animals endure, not only by how much it produces. Our mission is to measure that suffering openly and rigorously, so citizens, researchers and governments can see it, compare it and reduce it.</p>
             <div class="facts">
-                <div><strong>185</strong><span>countries scored every year, 2000–2023</span></div>
+                <div><strong>188</strong><span>countries scored, 2000–2023</span></div>
                 <div><strong>6</strong><span>pillars of preventable suffering</span></div>
                 <div><strong>100% open</strong><span>methodology, data and code</span></div>
             </div>
@@ -282,7 +283,7 @@ body = f'''        <section class="page-hero">
             <h2>Created by Adam Braus</h2>
             <p>Gross Domestic Suffering was created by Adam Braus, an educator, writer and the founder of Elton University. It began with a simple question: if GDP measures everything except what makes life worthwhile, what would it look like to measure the opposite?</p>
             <p>Leading economists have asked the same question. In September 2020, Nobel laureate Paul Krugman warned in <a href="https://www.nytimes.com/2020/09/07/opinion/trump-economy-jobs.html" target="_blank" rel="noopener"><em>The New York Times</em></a> that "despite job gains we're in the midst of a huge increase in national misery." Gross Domestic Suffering measures that misery directly.</p>
-            <p>The answer is an index of preventable suffering across illness, gender inequality, violence, unfreedom, deprivation and animal suffering. It scores 185 countries for every year since 2000. Japan, Switzerland and Germany suffer least. The United States, the world's largest economy, ranks 82nd, behind China, Cuba, Vietnam and Sri Lanka.</p>
+            <p>The answer is an index of preventable suffering across illness, gender and sexual discrimination, violence, unfreedom, deprivation and animal suffering. It scores 188 countries for every year since 2000. The Netherlands, Sweden and Denmark suffer least. The United States, the world's largest economy, ranks 61st, behind China, Albania, Kazakhstan and Türkiye.</p>
 
             <aside class="callout book">
                 <p class="eyebrow eyebrow-dark">The book</p>
@@ -330,6 +331,10 @@ write("about/index.html", page("About GDS: A Project of Elton University",
       "/about/", graph, body, "about"))
 
 
+# ---------------------------------------------------------------- Methods
+methods.build(write)
+
+
 # ---------------------------------------------------------------- home "from the blog" cards (latest 3)
 home = os.path.join(REPO, "index.html")
 h = open(home).read()
@@ -342,7 +347,7 @@ print("updated index.html blog cards")
 
 # ---------------------------------------------------------------- sitemap
 latest = max([DATE] + [p["date"] for p in POSTS])
-urls = [("/", "1.0", latest), ("/about/", "0.7", DATE), ("/faq/", "0.7", DATE), ("/blog/", "0.8", latest)] + \
+urls = [("/", "1.0", latest), ("/about/", "0.7", DATE), ("/faq/", "0.7", DATE), ("/methods/", "0.7", methods.UPDATED), ("/blog/", "0.8", latest)] + \
        [(f"/blog/{p['slug']}/", "0.8", p["date"]) for p in POSTS]
 sm = "\n".join(f"  <url>\n    <loc>{SITE}{u}</loc>\n    <lastmod>{lm}</lastmod>\n    <priority>{pr}</priority>\n  </url>" for u, pr, lm in urls)
 write("sitemap.xml", f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{sm}\n</urlset>\n')

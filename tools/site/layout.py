@@ -7,6 +7,7 @@ ELTON = "https://elton.university"
 NAV = [
     ("/#framework", "The index", "index"),
     ("/#prototype", "Findings", "findings"),
+    ("/methods/", "Methods", "methods"),
     ("/blog/", "Blog", "blog"),
     ("/faq/", "FAQ", "faq"),
     ("/about/", "About", "about"),
@@ -67,6 +68,7 @@ FOOTER = f'''    <footer class="site-footer">
                 <li><a href="/about/">About</a></li>
                 <li><a href="/blog/">Blog</a></li>
                 <li><a href="/faq/">FAQ</a></li>
+                <li><a href="/methods/">Methods</a></li>
                 <li><a href="/blog/alternative-to-gdp/">Alternatives to GDP</a></li>
                 <li><a href="/blog/limitations-of-gdp/">Limitations of GDP</a></li>
                 <li><a href="/blog/misery-index/">Misery index</a></li>

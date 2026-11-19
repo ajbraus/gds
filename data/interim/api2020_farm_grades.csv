@@ -1,0 +1,51 @@
+iso3,name_in_source,farm_grade,grade_basis
+ARG,Argentina,F,farming
+AUS,Australia,E,farming
+AUT,Austria,B,farming
+AZE,Azerbaijan,G,farming
+BLR,Belarus,G,farming
+BRA,Brazil,D,farming
+CAN,Canada,D,farming
+CHE,Switzerland,C,farming
+CHL,Chile,F,farming
+CHN,China,G,farming
+COL,Colombia,E,farming
+DEU,Germany,D,farming
+DNK,Denmark,C,farming
+DZA,Algeria,G,farming
+EGY,Egypt,G,farming
+ESP,Spain,D,farming
+ETH,Ethiopia,G,farming
+FRA,France,D,farming
+GBR,United Kingdom,D,farming
+IDN,Indonesia,F,farming
+IND,India,E,farming
+IRN,Iran,G,farming
+ITA,Italy,D,farming
+JPN,Japan,G,farming
+KEN,Kenya,F,farming
+KOR,Korea,D,farming
+MAR,Morocco,G,farming
+MEX,Mexico,D,farming
+MMR,Myanmar,G,farming
+MYS,Malaysia,F,farming
+NER,Niger,G,farming
+NGA,Nigeria,G,farming
+NLD,Netherlands,B,overall (no farming section)
+NZL,New Zealand,C,farming
+PAK,Pakistan,G,farming
+PER,Peru,G,farming
+PHL,Philippines,E,farming
+POL,Poland,C,farming
+ROU,Romania,F,farming
+RUS,Russia,G,farming
+SWE,Sweden,B,farming
+THA,Thailand,F,farming
+TUR,Turkey,E,farming
+TZA,Tanzania,D,farming
+UKR,Ukraine,E,farming
+URY,Uruguay,F,farming
+USA,USA,E,farming
+VEN,Venezuela,G,farming
+VNM,Vietnam,G,farming
+ZAF,South Africa,E,farming

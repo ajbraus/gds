@@ -11,6 +11,12 @@ WPB = ('Institute for Crime &amp; Justice Policy Research. World Prison Brief.',
 GSI = ('Walk Free. Global Slavery Index 2023.', 'https://www.walkfree.org/global-slavery-index/')
 FAO = ('UN Food and Agriculture Organization. Animals slaughtered for meat. via Our World in Data.', 'https://ourworldindata.org/grapher/animals-slaughtered-for-meat')
 API = ('World Animal Protection. Animal Protection Index 2020.', 'https://api.worldanimalprotection.org/')
+ADULT = ('World Health Organization. Adult mortality rate (probability of dying between 15 and 60 years per 1,000). Global Health Observatory.', 'https://www.who.int/data/gho/data/indicators/indicator-details/GHO/adult-mortality-rate-(probability-of-dying-between-15-and-60-years-per-1000-population)')
+SUICIDE = ('World Health Organization. Age-standardized suicide rates (per 100,000). Global Health Observatory.', 'https://www.who.int/data/gho/data/indicators/indicator-details/GHO/age-standardized-suicide-rates-(per-100-000-population)')
+SUBST = ('World Health Organization. Global Health Estimates: deaths from alcohol and drug use disorders. via Our World in Data.', 'https://ourworldindata.org/grapher/death-rates-substance-disorders-who')
+ILO = ('International Labour Organization. Employment by weekly hours actually worked. ILOSTAT.', 'https://ilostat.ilo.org/topics/working-time/')
+LGBTI = ('Velasco, K. LGBTI Composite Policy Index. via Our World in Data.', 'https://ourworldindata.org/grapher/lgbt-rights-index')
+METHODS = ('Gross Domestic Suffering. Methods: how the index is built.', 'https://grossdomesticsuffering.org/methods/')
 COBB = ('Cobb, C., Halstead, T., &amp; Rowe, J. (1995). If the GDP is up, why is America down? <em>The Atlantic</em>.', 'https://www.theatlantic.com/magazine/archive/1995/10/if-the-gdp-is-up-why-is-america-down/415807/')
 
 
@@ -42,9 +48,9 @@ SCHEDULED = [
 "date": "2026-12-03",
 "title": "The Best Countries to Live In, Ranked by Least Suffering",
 "seo_title": "Best Countries to Live In: Ranked by Least Suffering (2023)",
-"description": "Which are the best countries to live in? We rank 185 countries by preventable suffering: illness, violence, unfreedom, deprivation, gender inequality and animal suffering.",
+"description": "Which are the best countries to live in? We rank 188 countries by preventable suffering: illness, discrimination, violence, unfreedom, deprivation and animal suffering.",
 "tag": "Rankings",
-"excerpt": "Most \"best countries\" lists rank wealth or reputation. We ranked 185 countries by how much preventable suffering their people and animals endure. Japan comes first.",
+"excerpt": "Most \"best countries\" lists rank wealth or reputation. We ranked 188 countries by how much preventable suffering their people and animals endure. The Netherlands comes first.",
 "image": "/images/hero-earth-night.webp", "image_w": 2400, "image_h": 1200,
 "image_alt": "Satellite composite of the Earth's city lights at night",
 "credit": 'Earth\'s city lights. NASA Goddard Space Flight Center, <a href="https://commons.wikimedia.org/wiki/File:Earth%27s_City_Lights_by_DMSP,_1994-1995_(large).jpg" target="_blank" rel="noopener">public domain</a>.',
@@ -53,70 +59,73 @@ SCHEDULED = [
 "body": f'''
             <div class="callout tldr">
                 <strong>The short answer</strong>
-                <p>Measured by the least preventable suffering, the best countries to live in are <strong>Japan, Switzerland, Germany, Norway and Sweden</strong>. The United States ranks <strong>82nd of 185</strong>, behind China, Cuba and Vietnam. South Sudan, Ukraine, Haiti, Somalia and Nigeria carry the heaviest burdens.</p>
+                <p>Measured by the least preventable suffering, the best countries to live in are <strong>the Netherlands, Sweden, Denmark, Austria and Switzerland</strong>. The United States ranks <strong>61st of 188</strong>, behind China, Albania and Kazakhstan. Somalia, Haiti, the Central African Republic and South Sudan carry the heaviest burdens.</p>
             </div>
 
             <h2>A different way to rank countries</h2>
             <p>Most "best countries to live in" lists rank income, reputation or how a panel of survey respondents feels about a place. Those lists tell you where life looks good from the outside. We asked a harder question: where do people, and animals, suffer least?</p>
             <p>The Gross Domestic Suffering (GDS) index scores every country from 0 (least suffering) to 100 (most) across six pillars:{sup(1)}</p>
             <ul>
-                <li><strong>Illness:</strong> healthy years of life lost to disease, despair and early death, plus infant mortality.{sup(2)}{sup(3)}</li>
-                <li><strong>Gender inequality:</strong> the UN's Gender Inequality Index.{sup(4)}</li>
-                <li><strong>Violence:</strong> homicides plus deaths in war, per 100,000 people.{sup(5)}{sup(6)}</li>
-                <li><strong>Unfreedom:</strong> prisoners plus people in modern slavery, per 100,000.{sup(7)}{sup(8)}</li>
+                <li><strong>Illness:</strong> premature adult death, infant mortality, years lived in ill health, and deaths from alcohol and drugs.{sup(2)}{sup(3)}{sup(4)}</li>
+                <li><strong>Gender and sexual discrimination:</strong> the UN's Gender Inequality Index, plus laws against LGBTI people.{sup(5)}{sup(6)}</li>
+                <li><strong>Violence:</strong> homicides, war deaths and suicides, per 100,000 people.{sup(7)}{sup(8)}{sup(9)}</li>
+                <li><strong>Unfreedom:</strong> prisoners and people in modern slavery, plus overwork.{sup(10)}{sup(11)}{sup(12)}</li>
                 <li><strong>Deprivation:</strong> hunger, extreme poverty and forced displacement.</li>
-                <li><strong>Animal suffering:</strong> land animals slaughtered per person, adjusted for weak protection laws.{sup(9)}</li>
+                <li><strong>Animal suffering:</strong> how weakly the law protects farm animals.{sup(13)}</li>
             </ul>
-            <p>Every pillar counts equally, and the scale never moves between years. A lower score means less suffering.</p>
+            <p>Every pillar counts equally, and the scale never moves between years. A lower score means less suffering. <a href="/methods/">Read the full methods</a>.</p>
 
             <h2>The 10 best countries to live in (2023)</h2>
 {table(["Rank", "Country", "GDS score", "Weakest pillar"], [
-    ("1", "Japan", "11.5", "Animal suffering"),
-    ("2", "Switzerland", "12.4", "Animal suffering"),
-    ("3", "Germany", "14.5", "Animal suffering"),
-    ("4", "Norway", "14.6", "Animal suffering"),
-    ("5", "Sweden", "14.7", "Animal suffering"),
-    ("6", "Luxembourg", "15.2", "Unfreedom"),
-    ("7", "Denmark", "16.7", "Animal suffering"),
-    ("8", "Finland", "18.5", "Animal suffering"),
-    ("9", "Netherlands", "18.9", "Animal suffering"),
-    ("10", "Singapore", "18.9", "Animal suffering"),
+    ("1", "Netherlands", "20.4", "Illness"),
+    ("2", "Sweden", "22.2", "Violence"),
+    ("3", "Denmark", "22.5", "Illness"),
+    ("4", "Austria", "25.0", "Violence"),
+    ("5", "Switzerland", "25.3", "Violence"),
+    ("6", "Luxembourg", "25.8", "Animal suffering"),
+    ("7", "Norway", "26.0", "Animal suffering"),
+    ("8", "Ireland", "27.2", "Animal suffering"),
+    ("9", "Germany", "27.3", "Animal suffering"),
+    ("10", "Spain", "27.4", "Animal suffering"),
 ])}
-            <p>Japan tops the list because it scores near zero on almost every human pillar. People there lose only about 2.8 years of healthy life against our benchmark, fewer than 2 babies in 1,000 die before their first birthday, and the violent death rate is 0.2 per 100,000, one of the lowest in the world.</p>
-            <p>Notice the pattern in the last column. Even the best countries to live in score poorly on animal suffering. The Netherlands and Denmark slaughter enough animals per person to score 91 and 79 out of 100 on that pillar. No country has solved every kind of suffering.</p>
+            <p>The Netherlands tops the list because it scores low on every pillar at once. It has strong laws for women, LGBTI people and farm animals, few prisoners, little overwork and almost no hunger or extreme poverty.</p>
+            <p>Notice the pattern in the last column. Even the best countries carry real suffering: suicide is the main reason violence is the weakest pillar in Sweden, Austria and Switzerland, and most of Europe gets only a middling grade for protecting farm animals. No country has solved every kind of suffering.</p>
 
             <h2>Where the largest countries rank</h2>
 {table(["Rank", "Country", "GDS score"], [
-    ("1", "Japan", "11.5"),
-    ("3", "Germany", "14.5"),
-    ("17", "United Kingdom", "24.8"),
-    ("28", "China", "28.6"),
-    ("63", "Vietnam", "41.4"),
-    ("82", "United States", "45.3"),
-    ("83", "India", "45.7"),
-    ("98", "Russia", "49.7"),
-    ("145", "Mexico", "59.9"),
-    ("149", "Brazil", "61.5"),
-    ("181", "Nigeria", "70.7"),
+    ("9", "Germany", "27.3"),
+    ("19", "United Kingdom", "32.5"),
+    ("38", "Japan", "38.4"),
+    ("52", "China", "42.5"),
+    ("61", "United States", "47.1"),
+    ("62", "Indonesia", "47.5"),
+    ("79", "Vietnam", "53.3"),
+    ("83", "Brazil", "53.9"),
+    ("91", "Russia", "55.5"),
+    ("108", "Mexico", "58.5"),
+    ("112", "India", "60.4"),
+    ("180", "Nigeria", "79.2"),
 ], highlight="United States")}
+            <p>Japan is the surprise. It has almost no homicide, the lowest infant mortality of any large country and very few deaths from alcohol or drugs. But its suicide rate is high, about 15% of its workers put in 49 or more hours a week, and it receives the lowest possible grade for protecting farm animals.{sup(9)}{sup(12)}{sup(13)}</p>
 
-            <h2>Why the United States ranks 82nd</h2>
-            <p>The world's largest economy ranks just ahead of India. Three pillars pull it down:</p>
+            <h2>Why the United States ranks 61st</h2>
+            <p>The world's largest economy ranks just ahead of Indonesia. Four pillars pull it down:</p>
             <ul>
-                <li><strong>Unfreedom.</strong> About 542 of every 100,000 Americans are in prison, one of the five highest rates in the world, and Walk Free estimates another 330 per 100,000 live in modern slavery.{sup(7)}{sup(8)}</li>
-                <li><strong>Animal suffering.</strong> The US slaughters about 29 land animals per person each year, among the most in the world.{sup(9)}</li>
-                <li><strong>Illness and violence.</strong> Americans lose 10.4 years of healthy life against our benchmark, nearly four times as many as the Japanese, and die violently at 5 times the rate of the United Kingdom.</li>
+                <li><strong>Unfreedom.</strong> About 542 of every 100,000 Americans are in prison, one of the five highest rates in the world, and Walk Free estimates another 330 per 100,000 live in modern slavery.{sup(10)}{sup(11)}</li>
+                <li><strong>Illness.</strong> An American aged 15 has an 11% chance of dying before 60, more than twice the risk in Japan, and 37 Americans per 100,000 die each year of alcohol and drug use disorders, the highest rate of any rich country.{sup(2)}{sup(4)}</li>
+                <li><strong>Violence.</strong> Homicides and suicides together kill about 20 Americans per 100,000 each year, nearly twice the rate in the United Kingdom.{sup(7)}{sup(9)}</li>
+                <li><strong>Animal suffering.</strong> US farm-animal protection law earns an E on World Animal Protection's A-to-G scale.{sup(13)}</li>
             </ul>
-            <p>Wealth helps, but how a society uses its wealth matters more. Dozens of poorer countries suffer less than the United States.</p>
+            <p>Wealth helps, but how a society uses its wealth matters more. More than a dozen poorer countries suffer less than the United States.</p>
 
             <h2>The countries with the most suffering</h2>
-            <p>At the other end, South Sudan (185th), Ukraine (184th), Haiti, Somalia and Nigeria score above 70. War drives Ukraine's score. In South Sudan, Somalia and Haiti, violence, hunger and illness compound one another.</p>
+            <p>At the other end, Somalia (188th), Haiti (187th), the Central African Republic, South Sudan, Burkina Faso and Yemen score near or above 80. In each, war, hunger and illness compound one another, and people die young.</p>
 
             <h2>The good news: suffering is falling</h2>
-            <p>83% of countries suffered less in 2023 than in 2000, and the population-weighted world score fell from 52.6 to 45.4. Among countries with more than 20 million people, China (down 16.3 points), Uzbekistan (down 15.7), Tanzania (down 14.7) and India (down 13.5) improved most, mainly through less illness, hunger and poverty, and in India's case much less gender inequality. Animal suffering rose in all four. Ukraine, Egypt and Mexico got worse.</p>
+            <p>81% of countries suffered less in 2023 than in 2000, and the population-weighted world score fell from 61.7 to 54.6. Among countries with more than 20 million people, Kazakhstan (down 27.7 points), Sri Lanka (down 18.1), Uzbekistan (down 17.3) and China (down 16.5) improved most, through less illness, hunger, poverty and violence. Syria, Yemen and Burkina Faso, all torn by war, got much worse.</p>
             <p>Suffering is not fixed. Countries have already cut it dramatically, which means the rest can too.</p>
 ''',
-"sources": [GDS_DATA, HALE, IMR, GII, UNODC_DATA, UCDP, WPB, GSI, FAO],
+"sources": [GDS_DATA, ADULT, IMR, SUBST, GII, LGBTI, UNODC_DATA, UCDP, SUICIDE, WPB, GSI, ILO, API],
 },
 # ---------------------------------------------------------------------------
 {
@@ -174,7 +183,7 @@ SCHEDULED = [
 {table(["", "Genuine Progress Indicator", "Gross Domestic Suffering"], [
     ("Unit", "Dollars", "Score from 0 to 100 (higher = more suffering)"),
     ("Starts from", "Consumer spending", "Outcomes people and animals experience"),
-    ("Coverage", "Selected countries, states and years", "185 countries, every year 2000–2023"),
+    ("Coverage", "Selected countries, states and years", "188 countries, every year 2000–2023"),
     ("Counts violence and imprisonment?", "As dollar costs of crime", "Directly: violent deaths, prisoners, modern slavery"),
     ("Counts animal suffering?", "No", "Yes"),
 ])}
@@ -260,12 +269,13 @@ SCHEDULED = [
             <p>The United States stands out among rich countries. Its violent death rate is about three times Canada's and 25 times Japan's.</p>
 
             <h2>Violence in the Gross Domestic Suffering index</h2>
-            <p>Violence is one of six pillars in the <a href="/">Gross Domestic Suffering index</a>. We score it on a log scale from 0 to 100, so the difference between 1 and 10 deaths per 100,000 counts as much as the difference between 10 and 100. That keeps a single catastrophic war from swamping every other kind of suffering, while still placing countries at war near the bottom.</p>
-            <p>See how violence combines with illness, unfreedom, deprivation, gender inequality and animal suffering in our ranking of <a href="/blog/best-countries-to-live-in/">the best countries to live in</a>.</p>
+            <p>Violence is one of six pillars in the <a href="/">Gross Domestic Suffering index</a>. There we also count suicide, which the World Health Organization classifies as self-directed violence, so that every violent death counts the same.{sup(5)} We score the pillar on a log scale from 0 to 100, so the difference between 1 and 10 deaths per 100,000 counts as much as the difference between 10 and 100. That keeps a single catastrophic war from swamping every other kind of suffering, while still placing countries at war near the bottom.</p>
+            <p>See how violence combines with illness, discrimination, unfreedom, deprivation and animal suffering in our ranking of <a href="/blog/best-countries-to-live-in/">the best countries to live in</a>.</p>
 ''',
 "sources": [
     UNODC_DATA, UCDP, GDS_DATA,
     ('UNODC. (2023). Fifty-two people lost their lives to homicide globally every hour in 2021, says new report from UNODC. Global Study on Homicide 2023.', 'https://unodc.org/unodc/press/releases/2023/December/fifty-two-people-lost-their-lives-to-homicide-globally-every-hour-in-2021--says-new-report-from-unodc.html'),
+    SUICIDE,
 ],
 },
 # ---------------------------------------------------------------------------
@@ -337,7 +347,7 @@ SCHEDULED = [
             <p>Even the United States, at 3.3 per 1,000, has an estimated 1.1 million people in modern slavery.</p>
 
             <h2>Unfreedom in the Gross Domestic Suffering index</h2>
-            <p>Prison and slavery both hold people against their will, so the <a href="/">Gross Domestic Suffering index</a> adds them together into one <strong>Unfreedom</strong> pillar: prisoners plus enslaved people per 100,000. On that combined measure, Mauritania (3,257), Saudi Arabia (2,270), El Salvador (2,197), Turkmenistan and Russia rank worst among countries with both figures available. The United States, at 872, ranks 73rd of 209.</p>
+            <p>Prison and slavery both hold people against their will, so the <a href="/">Gross Domestic Suffering index</a> adds them together in its <strong>Unfreedom</strong> pillar: prisoners plus enslaved people per 100,000. (The pillar also counts overwork, the share of workers putting in 49 or more hours a week.) On that combined measure, Mauritania (3,257), Saudi Arabia (2,270), El Salvador (2,197), Turkmenistan and Russia rank worst among countries with both figures available. The United States, at 872, ranks 73rd of 209.</p>
             <p>Not every prisoner is a victim, of course. But mass incarceration causes enormous suffering for prisoners, their families and their communities, and countries such as Norway and Japan keep crime low while imprisoning a fraction as many people. That makes high incarceration a form of preventable suffering.</p>
             <p>See how unfreedom combines with the other five pillars in our ranking of <a href="/blog/best-countries-to-live-in/">the best countries to live in</a>.</p>
 ''',
@@ -414,10 +424,11 @@ SCHEDULED = [
             <p>Yes, slowly. The world's GII fell from 0.557 in 2000 to 0.455 in 2023. India, at 0.403, has cut its score by more than 40% since 2000.{sup(1)} At this pace, though, equality is generations away.</p>
 
             <h2>Gender inequality in the Gross Domestic Suffering index</h2>
-            <p>The GII is one of six pillars in the <a href="/">Gross Domestic Suffering index</a>. We use it because the losses it measures, from mothers dying in childbirth to women shut out of work and power, are suffering that societies can prevent. Some of it overlaps with our Illness pillar, since maternal deaths also shorten healthy lives, but most of what the GII captures, such as political and economic exclusion, appears nowhere else.</p>
-            <p>See how gender inequality combines with the other pillars in our ranking of <a href="/blog/best-countries-to-live-in/">the best countries to live in</a>.</p>
+            <p>The GII makes up 85% of the Gender and sexual discrimination pillar in the <a href="/">Gross Domestic Suffering index</a>. We use it because the losses it measures, from mothers dying in childbirth to women shut out of work and power, are suffering that societies can prevent. Most of what the GII captures, such as political and economic exclusion, appears nowhere else in the index.</p>
+            <p>The other 15% measures laws against LGBTI people, from criminalization to the lack of anti-discrimination protections.{sup(2)} The split follows the number of people affected: women are about half of humanity, and LGBTQ+ adults about 9%.</p>
+            <p>See how gender and sexual discrimination combines with the other pillars in our ranking of <a href="/blog/best-countries-to-live-in/">the best countries to live in</a>.</p>
 ''',
-"sources": [GII, GDS_DATA],
+"sources": [GII, LGBTI, GDS_DATA],
 },
 # ---------------------------------------------------------------------------
 {
@@ -425,7 +436,7 @@ SCHEDULED = [
 "date": "2027-02-11",
 "title": "How Many Animals Are Killed for Food Each Year?",
 "seo_title": "How Many Animals Are Killed for Food Each Year? (2023 Data)",
-"description": "About 85 billion land animals were slaughtered for meat in 2023. See the numbers by species and country, how they have grown since 1961, and how we measure animal suffering.",
+"description": "About 85 billion land animals were slaughtered for meat in 2023. See the numbers by species and country, how they have grown since 1961, and how laws protect them.",
 "tag": "Animal suffering",
 "excerpt": "About 85 billion land animals were slaughtered for meat in 2023, more than 2,600 every second. Here is the data by species and country.",
 "image": "/images/animals-cages.webp", "image_w": 1000, "image_h": 666,
@@ -470,12 +481,12 @@ SCHEDULED = [
             <p>The FAO counts animals where they are slaughtered, so countries that export a lot of meat, such as Brazil and the Netherlands, score high even though some of the meat is eaten abroad.</p>
 
             <h2>Does protection law make a difference?</h2>
-            <p>Numbers alone don't capture how animals live. World Animal Protection's Animal Protection Index grades 50 countries from A (strongest protection) to G (weakest) on their animal welfare laws and policies.{sup(2)} No country earned an A in the 2020 edition. Six earned a B: Austria, Denmark, the Netherlands, Sweden, Switzerland and the United Kingdom. Azerbaijan and Iran received a G.</p>
+            <p>Numbers alone don't capture how animals live. World Animal Protection's Animal Protection Index grades 50 countries from A (strongest protection) to G (weakest) on their animal welfare laws and policies, including a separate grade for animals used in farming.{sup(2)} No country earned an A for farm animals in the 2020 edition. Austria and Sweden earned a B. Japan, China, Russia, Nigeria and more than a dozen others received a G.</p>
 
             <h2>Animal suffering in the Gross Domestic Suffering index</h2>
             <p>Animal suffering is one of the six pillars of the <a href="/">Gross Domestic Suffering index</a>, weighted the same as human illness, violence and deprivation. Suffering does not stop at the species line.</p>
-            <p>We measure it as land animals slaughtered per person, then adjust for the Animal Protection Index: a country graded B gets 20% less weight per animal, and a country graded G gets 30% more. Better laws reduce suffering per animal, but they never cancel out the number of animals killed.</p>
-            <p>This pillar changes the rankings. Wealthy countries that eat a lot of meat, such as the United States, Australia and the Netherlands, score near the bottom on animal suffering even when they score well on human suffering. See the full picture in our ranking of <a href="/blog/best-countries-to-live-in/">the best countries to live in</a>.</p>
+            <p>We measure how animals are treated, not how many are eaten. An animal raised well and slaughtered humanely suffers far less than one confined for its whole life. So the pillar scores each country's farm-animal grade, from 0 for an A to 100 for a G. Countries the index does not grade get the median grade of graded countries in their region. <a href="/methods/">Read the full methods</a>.</p>
+            <p>This pillar changes the rankings. Japan scores well on almost every human pillar, but its G grade for farm animals helps explain why it ranks only 38th. See the full picture in our ranking of <a href="/blog/best-countries-to-live-in/">the best countries to live in</a>.</p>
 ''',
 "sources": [FAO, API, GDS_DATA],
 },

@@ -6,16 +6,18 @@ Usage (repo root):
     python3 -I pipeline/build_index.py
 
 Method (see docs/gds-v2-plan.md):
-  1. Assemble nine indicators per country-year, 2000-2023. Every indicator is framed
-     as suffering: higher = worse.
+  1. Assemble eleven indicators per country-year, 2000-2023. Every indicator is
+     framed as suffering (higher = worse) and measures suffering within a life, not
+     how long the life is.
   2. Fill gaps within each country: linear interpolation between observed years,
      held flat up to MAX_EXTEND years beyond the first/last observation.
   3. Transform (log for skewed rates) and rescale to 0-100 with FIXED goalposts
      (2.5th / 97.5th percentile of all observed country-years), so a country's
      score changes only when its own data changes.
   4. Average into six equally weighted pillars: Illness, Gender inequality, Violence,
-     Unfreedom, Deprivation and Animal suffering. Illness averages two indicators
-     because infant mortality is also inside healthy life expectancy.
+     Unfreedom, Deprivation and Animal suffering. Violence counts every violent death
+     equally: homicide, war and suicide (self-directed violence, as the WHO classifies it).
+     Only large, reliable, global datasets are used (see /methods/).
   5. GDS = weighted mean of pillars (0 = least suffering, 100 = most).
 """
 import json
@@ -32,32 +34,49 @@ RAW, INTERIM, OUT = "data/raw", "data/interim", "data/output"
 YEARS = list(range(2000, 2024))
 MAX_EXTEND = 5          # years a value may be carried beyond its last observation
 # Homicide and prison counts are published irregularly, so they may be carried further.
-MAX_EXTEND_BY = {"homicide": 10, "prison": 10, "poverty": 10}  # poverty surveys are also irregular
-HALE_REFERENCE = 75.0   # healthy life years benchmark (close to the best observed national HALE)
+MAX_EXTEND_BY = {"homicide": 10, "prison": 10, "poverty": 10, "overwork": 10}  # irregular surveys
 GOALPOST_PCT = (2.5, 97.5)
 MIN_PILLARS = 5
 
-# Animal Protection Index grade -> multiplier on animals slaughtered per person.
-# D (the median grade) is neutral; unrated countries get 1.0.
-API_FACTOR = {"A": 0.70, "B": 0.80, "C": 0.90, "D": 1.00, "E": 1.10, "F": 1.20, "G": 1.30}
+NORDIC = ["NOR", "SWE", "DNK", "FIN"]
+SLAVERY_PEERS = {
+    "ISL": NORDIC, "FRO": NORDIC, "GRL": NORDIC,
+    "LUX": ["BEL", "NLD", "DEU", "FRA"], "LIE": ["CHE", "AUT"], "MCO": ["FRA", "ITA"],
+    "AND": ["ESP", "FRA"], "SMR": ["ITA"], "MLT": ["ITA", "CYP"], "GIB": ["GBR", "ESP"],
+    "CHI": ["GBR", "IRL"], "IMN": ["GBR", "IRL"],
+}
+
+# Animal suffering measures treatment, not numbers: the Animal Protection Index farm-animal
+# grade (50 countries, 88% of land animals eaten), A = 0 to G = 100. Unrated countries get the
+# median grade of rated countries in their World Bank region.
+API_SCORE = {g: round(100 * i / 6, 1) for i, g in enumerate("ABCDEFG")}
+FIXED_GOALPOSTS = {"animal_suffering": (0, 100)}  # the grade scale is already 0-100
+# Within Discrimination, weight by people affected: women are about half of people,
+# LGBTQ+ adults about 9% (Ipsos LGBT+ Pride 2023, 26 countries), so 50:9, roughly 85:15
+INDICATOR_WEIGHTS = {"gender_inequality": 0.85, "lgbti_laws": 0.15}
+MIN_POP = 0  # every scored country is ranked, whatever its size
 
 INDICATORS = {
     # key: (label, unit, transform)
-    "illness_burden":    ("Healthy life years lost to illness and early death", f"years below {HALE_REFERENCE:g} (WHO HALE)", "linear"),
+    "premature_death":   ("Premature adult death", "probability of dying between 15 and 60, per 1,000 (WHO)", "log"),
+    "ill_health_share":  ("Share of life lived in ill health", "% of life expectancy, (LE - HALE) / LE (WHO)", "linear"),
     "infant_mortality":  ("Infant mortality", "deaths per 1,000 live births", "log"),
+    "substance_deaths":  ("Alcohol and drug deaths", "deaths from alcohol and drug use disorders per 100k (WHO GHE)", "log"),
     "gender_inequality": ("Gender Inequality Index", "0-1 (UNDP)", "linear"),
-    "violence":          ("Violent deaths", "homicide (UNODC, WHO fallback) + conflict deaths (UCDP) per 100k", "log1p"),
-    "unfreedom":         ("Unfree people", "prisoners + people in modern slavery per 100k", "log"),
+    "lgbti_laws":        ("Anti-LGBTI laws", "LGBTI Composite Policy Index, sign reversed (Velasco, via OWID)", "linear"),
+    "violence":          ("Violent deaths", "homicide (UNODC, WHO fallback) + conflict deaths (UCDP) + suicide (WHO) per 100k", "log1p"),
+    "captivity":         ("People held captive", "prisoners + people in modern slavery per 100k", "log"),
+    "overwork":          ("Overwork", "% of employed working 49+ hours a week (ILO)", "log"),
     "undernourishment":  ("Undernourishment", "% of population (FAO)", "log"),
     "extreme_poverty":   ("Extreme poverty", "% below $3.00/day, 2021 PPP (World Bank)", "log1p"),
     "displacement":      ("Forcibly displaced people", "refugees, asylum seekers and IDPs by origin per 100k (UNHCR)", "log1p"),
-    "animal_suffering":  ("Animal suffering", "welfare-adjusted land animals slaughtered per person", "log1p"),
+    "animal_suffering":  ("Farm-animal mistreatment", "Animal Protection Index 2020 farm-animal grade, A = 0 to G = 100", "linear"),
 }
 PILLARS = {
-    "illness":           ["illness_burden", "infant_mortality"],
-    "gender_inequality": ["gender_inequality"],
+    "illness":           ["premature_death", "infant_mortality", "ill_health_share", "substance_deaths"],
+    "discrimination":    ["gender_inequality", "lgbti_laws"],
     "violence":          ["violence"],
-    "unfreedom":         ["unfreedom"],
+    "unfreedom":         ["captivity", "overwork"],
     "deprivation":       ["undernourishment", "extreme_poverty", "displacement"],
     "animal_suffering":  ["animal_suffering"],
 }
@@ -82,11 +101,30 @@ def series(df, value_col):
     return df[["iso3", "year", value_col]].rename(columns={value_col: "value"}).dropna()
 
 
+def who(code):
+    d = pd.DataFrame(json.load(open(f"{RAW}/who/{code}.json"))["value"])
+    d = d[(d.SpatialDimType == "COUNTRY") & (d.Dim1 == "SEX_BTSX")].copy()
+    # A few WHO series publish the number only as text in "Value"
+    d["NumericValue"] = d.NumericValue.fillna(pd.to_numeric(d.Value, errors="coerce"))
+    return d.rename(columns={"SpatialDim": "iso3", "TimeDim": "year", "NumericValue": "value"})[["iso3", "year", "value"]]
+
+
 def load_raw():
     out = {}
-    hale = pd.DataFrame(json.load(open(f"{RAW}/who/WHOSIS_000002.json"))["value"])
-    hale = hale[(hale.SpatialDimType == "COUNTRY") & (hale.Dim1 == "SEX_BTSX")]
-    out["hale"] = hale.rename(columns={"SpatialDim": "iso3", "TimeDim": "year", "NumericValue": "value"})[["iso3", "year", "value"]]
+    out["hale"] = who("WHOSIS_000002")
+    out["life_expectancy"] = who("WHOSIS_000001")
+    out["adult_mortality"] = who("WHOSIS_000004")
+    out["suicide"] = who("SDGSUICIDE")
+    subs = owid("death-rates-substance-disorders-who")
+    out["substance_deaths"] = series(subs, [c for c in subs.columns if c.startswith("death_rate")][0])
+
+    ilo = pd.read_csv(f"{RAW}/ilo/EMP_TEMP_SEX_HOW_NB_A.csv.gz")
+    ilo = ilo[ilo.sex == "SEX_T"].pivot_table(index=["ref_area", "time"], columns="classif1", values="obs_value", aggfunc="first")
+    ilo = (100 * ilo["HOW_BANDS_HGE49"] / ilo["HOW_BANDS_TOTAL"]).rename("value").reset_index()
+    ilo = ilo.rename(columns={"ref_area": "iso3", "time": "year"}).dropna()
+    # Japan is missing from ILO's hours breakdown; use its own Labour Force Survey (via JILPT)
+    sup = pd.read_csv(f"{INTERIM}/overwork_supplement.csv").rename(columns={"overwork_pct": "value"})
+    out["overwork"] = pd.concat([ilo[~ilo.iso3.isin(sup.iso3)], sup[["iso3", "year", "value"]]])
     who_hom = pd.DataFrame(json.load(open(f"{RAW}/who/VIOLENCE_HOMICIDERATE.json"))["value"])
     who_hom = who_hom[(who_hom.SpatialDimType == "COUNTRY") & (who_hom.Dim1 == "SEX_BTSX")]
     out["homicide_who"] = who_hom.rename(columns={"SpatialDim": "iso3", "TimeDim": "year", "NumericValue": "value"})[["iso3", "year", "value"]]
@@ -105,6 +143,8 @@ def load_raw():
     gii = gii.melt(id_vars="iso3", var_name="year", value_name="value").dropna()
     gii["year"] = gii.year.str[4:].astype(int)
     out["gii"] = gii[gii.iso3.str.len() == 3]
+    lgbti = series(owid("lgbt-rights-index"), "composite_index")
+    out["lgbti"] = lgbti.assign(value=-lgbti.value)  # higher = more discriminatory law
 
     hom = owid("homicide-rate-unodc")
     out["homicide"] = series(hom, [c for c in hom.columns if c.startswith("value__")][0])
@@ -119,8 +159,31 @@ def load_raw():
     ani["value"] = ani[cols].sum(axis=1).where(ani[chicken].notna())
     out["slaughtered"] = ani[["iso3", "year", "value"]].dropna()
 
+    # Animals eaten: kg of each meat type available per person / world average kg per animal
+    # of that type (FAO production / FAO heads slaughtered), so importers count the animals
+    # they eat and exporters are not charged for animals eaten abroad.
+    prod = pd.read_csv(f"{RAW}/owid/global-meat-production-by-livestock-type.csv")
+    prod = prod[prod.entity == "World"].set_index("year")
+    heads = ani_world = pd.read_csv(f"{RAW}/owid/animals-slaughtered-for-meat.csv")
+    ani_world = ani_world[ani_world.entity == "World"].set_index("year")
+    pick = lambda df, *names: df[[c for c in df.columns if any(c.startswith(f"meat__{n}") or c.startswith(f"meat_of_{n}") for n in names)]].sum(axis=1)
+    kg_per_animal = pd.DataFrame({
+        "poultry": pick(prod, "poultry") * 1000 / pick(ani_world, "chicken", "turkey", "duck"),
+        "pig": pick(prod, "pig") * 1000 / pick(ani_world, "pig"),
+        "beef_and_buffalo": pick(prod, "beef_and_buffalo") * 1000 / pick(ani_world, "cattle"),
+        "sheep_and_goat": pick(prod, "sheep_and_goat") * 1000 / pick(ani_world, "goat", "lamb"),
+    }).dropna()
+    sup = owid("per-capita-meat-type")
+    eaten = 0
+    for t in kg_per_animal.columns:
+        col = [c for c in sup.columns if c.startswith(f"meat__{t}__")][0]
+        eaten = eaten + sup[col].fillna(0) / sup.year.map(kg_per_animal[t])
+    poultry_col = [c for c in sup.columns if c.startswith("meat__poultry__")][0]
+    sup["value"] = eaten.where(sup[poultry_col].notna())
+    out["eaten_per_person"] = sup[["iso3", "year", "value"]].dropna()
+
     out["slavery"] = pd.read_csv(f"{INTERIM}/gsi2023_slavery.csv")
-    out["api"] = pd.read_csv(f"{INTERIM}/api2020_grades.csv")
+    out["api"] = pd.read_csv(f"{INTERIM}/api2020_farm_grades.csv").rename(columns={"farm_grade": "api_grade"})
     return out
 
 
@@ -140,10 +203,16 @@ def panel(raw):
     isos = sorted(countries)
     vals, imp = {}, {}
 
-    hale, imp["illness_burden"] = fill(raw["hale"], isos)
-    vals["illness_burden"] = (HALE_REFERENCE - hale).clip(lower=0)
+    hale, hale_imp = fill(raw["hale"], isos)
+    le, le_imp = fill(raw["life_expectancy"], isos)
+    vals["ill_health_share"] = (100 * (le - hale) / le).clip(lower=0)
+    imp["ill_health_share"] = hale_imp | le_imp
+    vals["substance_deaths"], imp["substance_deaths"] = fill(raw["substance_deaths"], isos)
+    vals["overwork"], imp["overwork"] = fill(raw["overwork"], isos, MAX_EXTEND_BY["overwork"])
     vals["infant_mortality"], imp["infant_mortality"] = fill(raw["imr"], isos)
+    vals["premature_death"], imp["premature_death"] = fill(raw["adult_mortality"], isos)
     vals["gender_inequality"], imp["gender_inequality"] = fill(raw["gii"], isos)
+    vals["lgbti_laws"], imp["lgbti_laws"] = fill(raw["lgbti"], isos)
 
     hom, hom_imp = fill(raw["homicide"], isos, MAX_EXTEND_BY["homicide"])
     # Fall back to WHO's modelled homicide estimates where UNODC has no usable figure
@@ -152,18 +221,33 @@ def panel(raw):
     hom = hom.fillna(who_hom)
     con, con_imp = fill(raw["conflict"], isos)
     con = con.fillna(0)  # UCDP records every conflict; no entry means no recorded conflict deaths
-    vals["violence"] = hom + con
-    imp["violence"] = hom_imp
+    sui, sui_imp = fill(raw["suicide"], isos)
+    # WHO publishes no suicide rate for some very small states: use the median of the same
+    # World Bank region and income group, flagged as imputed
+    wb = {r["id"]: (r["region"]["value"], r["incomeLevel"]["value"]) for r in json.load(open(f"{RAW}/worldbank/countries.json"))[1]}
+    peer = pd.Series({i: " / ".join(wb.get(i, ("?", "?"))) for i in isos})
+    sui_imp = sui_imp | sui.isna()
+    sui = sui.fillna(sui.groupby(peer).transform("median"))
+    vals["violence"] = hom + con + sui
+    imp["violence"] = hom_imp | sui_imp
 
     prison, prison_imp = fill(raw["prison"], isos, MAX_EXTEND_BY["prison"])
     sl = raw["slavery"].set_index("iso3").slavery_per_1000.reindex(isos)
-    # Regional median for countries Walk Free does not estimate (mostly small states)
-    regions = {r["id"]: r["region"]["value"] for r in json.load(open(f"{RAW}/worldbank/countries.json"))[1]}
-    reg = pd.Series({i: regions.get(i) for i in isos})
-    sl_filled = sl.fillna(sl.groupby(reg).transform("median"))
+    # Countries Walk Free does not estimate (mostly small states) get the median of
+    # countries in the same region AND income group, e.g. Iceland ~ high-income Europe,
+    # not a Europe & Central Asia median that includes Russia and Turkmenistan.
+    wb = {r["id"]: (r["region"]["value"], r["incomeLevel"]["value"]) for r in json.load(open(f"{RAW}/worldbank/countries.json"))[1]}
+    peer = pd.Series({i: " / ".join(wb.get(i, ("?", "?"))) for i in isos})
+    region = pd.Series({i: wb.get(i, ("?", "?"))[0] for i in isos})
+    # Small Western European states: closest neighbours, since high-income Europe also spans
+    # Eastern Europe and Russia, where Walk Free's estimates run 3-13 per 1,000.
+    for iso, peers in SLAVERY_PEERS.items():
+        if iso in sl.index and pd.isna(sl[iso]):
+            sl[iso] = sl.reindex(peers).median()
+    sl_filled = sl.fillna(sl.groupby(peer).transform("median")).fillna(sl.groupby(region).transform("median"))
     slavery_100k = pd.DataFrame(np.repeat(sl_filled.values[:, None] * 100, len(YEARS), axis=1), index=isos, columns=YEARS)
-    vals["unfreedom"] = prison + slavery_100k
-    imp["unfreedom"] = prison_imp | pd.DataFrame(np.repeat(sl.isna().values[:, None], len(YEARS), axis=1), index=isos, columns=YEARS)
+    vals["captivity"] = prison + slavery_100k
+    imp["captivity"] = prison_imp | pd.DataFrame(np.repeat(sl.isna().values[:, None], len(YEARS), axis=1), index=isos, columns=YEARS)
 
     pop, _ = fill(raw["pop"], isos)
     vals["undernourishment"], imp["undernourishment"] = fill(raw["undernourishment"], isos)
@@ -173,10 +257,13 @@ def panel(raw):
     listed = raw["displaced"].iso3.unique()
     displaced.loc[~displaced.index.isin(listed)] = 0
     vals["displacement"] = displaced / pop * 1e5
-    sla, sla_imp = fill(raw["slaughtered"], isos)
-    factor = raw["api"].set_index("iso3").api_grade.map(API_FACTOR).reindex(isos).fillna(1.0)
-    vals["animal_suffering"] = (sla / pop).mul(factor, axis=0)
-    imp["animal_suffering"] = sla_imp
+    order = "ABCDEFG"
+    grade = raw["api"].set_index("iso3").api_grade.reindex(isos)
+    rank = grade.map({g: i for i, g in enumerate(order)})
+    filled = rank.fillna(rank.groupby(region).transform("median").round()).fillna(rank.median())
+    a = filled.map(lambda i: API_SCORE[order[int(i)]])
+    vals["animal_suffering"] = pd.DataFrame({y: a for y in YEARS})
+    imp["animal_suffering"] = pd.DataFrame({y: grade.isna() for y in YEARS})
 
     long = []
     for k in INDICATORS:
@@ -187,7 +274,7 @@ def panel(raw):
     df.insert(1, "country", df.iso3.map(countries))
     df["population"] = pop.stack(dropna=False).reindex(pd.MultiIndex.from_frame(df[["iso3", "year"]])).values
     df["slavery_per_1000_gsi2023"] = df.iso3.map(sl)
-    df["api_grade_2020"] = df.iso3.map(raw["api"].set_index("iso3").api_grade)
+    df["api_farm_grade_2020"] = df.iso3.map(raw["api"].set_index("iso3").api_grade)
     return df
 
 
@@ -206,21 +293,27 @@ def score(df, weights=WEIGHTS, goalposts=None):
         goalposts = {}
         for k, (_, _, kind) in INDICATORS.items():
             t = transform(df.loc[~df[k + "_imputed"].astype(bool), k].dropna(), kind)
-            goalposts[k] = tuple(np.percentile(t, GOALPOST_PCT))
+            goalposts[k] = FIXED_GOALPOSTS.get(k) or tuple(np.percentile(t, GOALPOST_PCT))
     for k, (_, _, kind) in INDICATORS.items():
         lo, hi = goalposts[k]
         df[k + "_score"] = (100 * (transform(df[k], kind) - lo) / (hi - lo)).clip(0, 100)
     for p, ks in PILLARS.items():
-        df["pillar_" + p] = df[[k + "_score" for k in ks]].mean(axis=1)
+        S = df[[k + "_score" for k in ks]]
+        w = pd.Series([INDICATOR_WEIGHTS.get(k, 1) for k in ks], index=S.columns)
+        df["pillar_" + p] = (S.fillna(0) * w).sum(axis=1) / (S.notna() * w).sum(axis=1)
+    # The LGBTI index carries 15% of the pillar, too little to stand in for missing gender data
+    df.loc[df.gender_inequality_score.isna(), "pillar_discrimination"] = np.nan
     P = df[["pillar_" + p for p in PILLARS]]
     W = pd.Series({"pillar_" + p: w for p, w in weights.items()})
     avail = P.notna()
     df["n_pillars"] = avail.sum(axis=1)
     df["gds"] = (P.fillna(0) * W).sum(axis=1) / (avail * W).sum(axis=1)
-    ok = (df.n_pillars >= MIN_PILLARS) & df.pillar_illness.notna()
+    # Illness and Animal suffering are required: no country gets a pass on either
+    ok = (df.n_pillars >= MIN_PILLARS) & df.pillar_illness.notna() & df.pillar_animal_suffering.notna()
     df.loc[~ok, "gds"] = np.nan
-    df["rank"] = df.groupby("year").gds.rank(method="min")
-    df["n_ranked"] = df.groupby("year").gds.transform("count")
+    big = df.gds.where(df.population >= MIN_POP)
+    df["rank"] = big.groupby(df.year).rank(method="min")
+    df["n_ranked"] = big.groupby(df.year).transform("count")
     imp_cols = [k + "_imputed" for k in INDICATORS]
     df["share_imputed"] = df[imp_cols].astype(float).mean(axis=1).round(2)
     return df, goalposts
@@ -231,7 +324,7 @@ def rank_ranges(df, year, n=1000, seed=7):
     rng = np.random.default_rng(seed)
     d = df[df.year == year].set_index("iso3")
     P = d[["pillar_" + p for p in PILLARS]]
-    ok = d.gds.notna()
+    ok = d["rank"].notna()
     ranks = []
     for w in rng.dirichlet([4] * len(PILLARS), n):
         avail = P[ok].notna()
@@ -254,7 +347,7 @@ def main():
     scored["rank_humans_only"] = human["rank"]
 
     # Ranks comparable over time: rank only among countries scored in every year
-    always = scored.groupby("iso3").gds.apply(lambda g: g.notna().all())
+    always = scored.groupby("iso3")["rank"].apply(lambda g: g.notna().all())
     panel_set = always[always].index
     in_panel = scored.iso3.isin(panel_set)
     scored.loc[in_panel, "rank_constant_set"] = scored[in_panel].groupby("year").gds.rank(method="min")
@@ -266,7 +359,7 @@ def main():
 
     cols = (["iso3", "country", "year", "gds", "rank", "n_ranked", "rank_constant_set", "rank_p5", "rank_p95", "gds_humans_only", "rank_humans_only"]
             + ["pillar_" + p for p in PILLARS] + [k + "_score" for k in INDICATORS] + list(INDICATORS)
-            + ["slavery_per_1000_gsi2023", "api_grade_2020", "population", "n_pillars", "share_imputed"])
+            + ["slavery_per_1000_gsi2023", "api_farm_grade_2020", "population", "n_pillars", "share_imputed"])
     out = scored[cols].sort_values(["year", "rank", "iso3"])
     num = out.select_dtypes("float").columns
     out[num] = out[num].round(3)
@@ -278,7 +371,7 @@ def main():
     gp.to_csv(f"{OUT}/goalposts.csv", index=False)
 
     # World trend: population-weighted mean GDS across ranked countries
-    w = scored.dropna(subset=["gds", "population"])
+    w = scored.dropna(subset=["rank", "population"])
     world = w.groupby("year").apply(lambda g: np.average(g.gds, weights=g.population)).round(2).rename("world_gds_pop_weighted")
     world = pd.concat([world, w.groupby("year").gds.median().round(2).rename("median_country_gds"),
                        w.groupby("year").size().rename("countries_ranked")], axis=1)

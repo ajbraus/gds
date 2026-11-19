@@ -12,7 +12,11 @@ owid() { get "https://ourworldindata.org/grapher/$1.csv?v=1&csvType=full&useColu
 owid homicide-rate-unodc                 # UNODC: intentional homicides per 100k
 owid death-rate-in-armed-conflicts       # UCDP: conflict deaths per 100k, where they occurred
 owid prison-population-rate              # ICPR World Prison Brief: prisoners per 100k
+owid lgbt-rights-index                   # Velasco: LGBTI Composite Policy Index (laws)
 owid animals-slaughtered-for-meat        # FAO: land animals slaughtered, by species
+owid per-capita-meat-type                # FAO: meat available to eat per person, by type
+owid global-meat-production-by-livestock-type  # FAO: meat production (tonnes), by type
+owid death-rates-substance-disorders-who # WHO GHE: deaths from alcohol and drug use disorders per 100k
 
 echo "UNDP Human Development Report (Gender Inequality Index)"
 get "https://hdr.undp.org/sites/default/files/2025_HDR/HDR25_Composite_indices_complete_time_series.csv" \
@@ -21,6 +25,13 @@ get "https://hdr.undp.org/sites/default/files/2025_HDR/HDR25_Composite_indices_c
 echo "WHO Global Health Observatory (healthy life expectancy, homicide estimates)"
 get "https://ghoapi.azureedge.net/api/WHOSIS_000002" "$RAW/who/WHOSIS_000002.json"
 get "https://ghoapi.azureedge.net/api/VIOLENCE_HOMICIDERATE" "$RAW/who/VIOLENCE_HOMICIDERATE.json"  # modelled homicide rates (fallback)
+get "https://ghoapi.azureedge.net/api/WHOSIS_000001" "$RAW/who/WHOSIS_000001.json"   # life expectancy at birth
+get "https://ghoapi.azureedge.net/api/WHOSIS_000004" "$RAW/who/WHOSIS_000004.json"   # probability of dying age 15-60
+get "https://ghoapi.azureedge.net/api/SDGSUICIDE" "$RAW/who/SDGSUICIDE.json"         # suicide deaths per 100k
+
+echo "ILO (employment by weekly hours worked, for overwork)"
+mkdir -p "$RAW/ilo"
+get "https://rplumber.ilo.org/data/indicator/?id=EMP_TEMP_SEX_HOW_NB_A&sex=SEX_T&format=.csv.gz" "$RAW/ilo/EMP_TEMP_SEX_HOW_NB_A.csv.gz"
 
 echo "World Bank (infant mortality, population, country list)"
 get "https://api.worldbank.org/v2/country?format=json&per_page=400" "$RAW/worldbank/countries.json"
@@ -35,6 +46,18 @@ get "https://api.unhcr.org/population/v1/population/?limit=10000&yearFrom=2000&y
 
 echo "World Animal Protection (Animal Protection Index 2020 rankings page)"
 get "https://api.worldanimalprotection.org/rankings" "$RAW/wap/rankings.html"
+# Country profiles (farm-animal grade); slugs follow the country names on the rankings page
+for slug in algeria argentina australia austria azerbaijan belarus brazil canada chile china colombia \
+    denmark egypt ethiopia france germany india indonesia iran italy japan kenya korea malaysia mexico \
+    morocco myanmar netherlands new-zealand niger nigeria pakistan peru philippines poland romania russia \
+    south-africa spain sweden switzerland tanzania thailand turkey ukraine united-kingdom uruguay usa venezuela vietnam; do
+    get "https://api.worldanimalprotection.org/country/$slug" "$RAW/wap/countries/$slug.html"
+done
+ia iran italy japan kenya korea malaysia mexico \
+    morocco myanmar netherlands new-zealand niger nigeria pakistan peru philippines poland romania russia \
+    south-africa spain sweden switzerland tanzania thailand turkey ukraine united-kingdom uruguay usa venezuela vietnam; do
+    get "https://api.worldanimalprotection.org/country/$slug" "$RAW/wap/countries/$slug.html"
+done
 
 echo "Walk Free (Global Slavery Index 2023 report; country table is parsed from the PDF)"
 [ -f "$RAW/walkfree/Global-Slavery-Index-2023.pdf" ] || \
